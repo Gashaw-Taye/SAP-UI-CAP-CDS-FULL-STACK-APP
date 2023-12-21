@@ -12,7 +12,7 @@ sap.ui.define([
     function (Controller, MessageToast, ColumnListItem,Input, JSONModel) {
         "use strict";
 
-        return Controller.extend("project1.controller.Home", {
+        return Controller.extend("miniproject.controller.Home", {
             
             onInit: function () {
                 this._oTable = this.byId("table0");

@@ -11,7 +11,7 @@ sap.ui.define([
     function (Controller, MessageToast, ColumnListItem,Input) {
         "use strict";
 
-        return Controller.extend("project1.controller.Login", {
+        return Controller.extend("miniproject.controller.Login", {
             onLoginClick: function(){
                 var username = this.getView().byId('username').getValue();
                 var pwd = this.getView().byId('pwd').getValue();

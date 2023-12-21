@@ -12,11 +12,12 @@
   },
   "devDependencies": {
     "@cap-js/sqlite": "^1",
-    "@sap/ux-specification": "^1.120.0"
+    "@sap/ux-specification": "^1.120.0",
+    "sqlite3": "^5.1.6"
   },
   "scripts": {
     "start": "cds-serve",
-    "watch-project1": "cds watch --open project1/webapp/index.html?sap-ui-xx-viewCache=false"
+    "watch-miniproject": "cds watch --open miniproject/webapp/index.html?sap-ui-xx-viewCache=false"
   },
   "cds": {
     "requires": {

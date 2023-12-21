@@ -1,7 +1,7 @@
 {
   "_version": "1.59.0",
   "sap.app": {
-    "id": "project1",
+    "id": "miniproject",
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
@@ -67,7 +67,7 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "project1.i18n.i18n"
+          "bundleName": "miniproject.i18n.i18n"
         }
       },
       "mainModel": {
@@ -98,7 +98,7 @@
         "routerClass": "sap.m.routing.Router",
         "viewType": "XML",
         "async": true,
-        "viewPath": "project1.view",
+        "viewPath": "miniproject.view",
         "controlAggregation": "pages",
         "controlId": "app",
         "clearControlAggregation": false
@@ -170,7 +170,7 @@
       }
     },
     "rootView": {
-      "viewName": "project1.view.App",
+      "viewName": "miniproject.view.App",
       "type": "XML",
       "async": true,
       "id": "App"

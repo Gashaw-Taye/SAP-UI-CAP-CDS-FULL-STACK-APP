@@ -11,7 +11,7 @@ sap.ui.define([
   function (Controller, MessageToast, ColumnListItem,Input) {
       "use strict";
 
-      return Controller.extend("project1.controller.Dashboard", {
+      return Controller.extend("miniproject.controller.Dashboard", {
           
           onInit: function () {
               this._oTable = this.byId("table0");
