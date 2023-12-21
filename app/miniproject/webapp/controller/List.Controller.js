@@ -12,7 +12,7 @@ sap.ui.define([
     function (Controller, MessageToast, ColumnListItem,Input, JSONModel) {
         "use strict";
 
-        return Controller.extend("miniproject.controller.Home", {
+        return Controller.extend("miniproject.controller.List", {
             
             onInit: function () {
                 this._oTable = this.byId("table0");
@@ -21,7 +21,7 @@ sap.ui.define([
 
           
                 
-                fetch("https://port4004-workspaces-ws-wml98.us10.trial.applicationstudio.cloud.sap/odata/v4/users/Users")
+                fetch("http://localhost:4004/odata/v4/users/Users")
                 .then(response => response.json())
                 .then(data => {
                     // Create a JSONModel and set the data to the model
@@ -46,7 +46,6 @@ sap.ui.define([
                 // this.getView().setModel(oModel, "userModel");
 
                 var oModel = new JSONModel({
-                    Planned_study_date_edit: "",
                     Office_edit: "",
                     Advisor_edit: "",
                     Gender_edit: "",
@@ -60,21 +59,18 @@ sap.ui.define([
                 this.oEditableTemplate = new ColumnListItem({
                     cells: [
                         new Input({
-                            value: "{mainModel>ID}",
+                            value: "{Students>ID}",
                             change: [this.onInputChange, this]
                         }), new Input({
-                            value: "{mainModel>Full_name}",
+                            value: "{Students>Full_name}",
                             change: [this.onInputChange, this]
                         }), new Input({
-                            value: "{mainModel>Office}",
+                            value: "{Students>Office}",
                             change: [this.onInputChange, this]
                         }), new Input({
-                            value: "{mainModel>Advisor_ID}",
+                            value: "{Students>Advisor_ID}",
                             change: [this.onInputChange, this]
-                        }),  new Input({
-                            value: "{mainModel>Planned_study_date}",
-                            change: [this.onInputChange, this]
-                        }),
+                        }), 
                         new sap.m.Button({
                             id: "editModeButton",
                             visible: true,
@@ -90,46 +86,40 @@ sap.ui.define([
                 });
 
             },
-            onSearch: function (oEvent) {
-                var oTable = this.getView().byId("table0");
-                var oBinding = oTable.getBinding("items");
-                var sQuery = oEvent.getParameter("query");
-                // alert('fuhairfhr')
-                if (sQuery) {
-                    var oFilter = new sap.ui.model.Filter({
-                        filters: [
-                            new sap.ui.model.Filter("Full_name", sap.ui.model.FilterOperator.Contains, sQuery),
-                            // Add more filters based on your needs
-                        ],
-                        and: false
-                    });
-       
-                    oBinding.filter([oFilter]);
-                } else {
-                    // If the search field is empty, remove the filter
-                    oBinding.filter([]);
-                }
-            },
-            
-            onLiveSearch: function (oEvent) {
-                var oTable = this.getView().byId("table0");
-                var oBinding = oTable.getBinding("items");
-                var sQuery = oEvent.getParameter("newValue");
-                if (sQuery) {
-                    var oFilter = new sap.ui.model.Filter({
-                        filters: [
-                            new sap.ui.model.Filter("Full_name", sap.ui.model.FilterOperator.Contains, sQuery),
-                        ],
-                        and: false
-                    });
-                    oBinding.filter([oFilter]);
-                    console.log(oBinding)
-
-                } else {
-                    // If the search field is empty, remove the filter
-                    oBinding.filter([]);
-                }
-            },
+			onLiveSearch: function (oEvent) {
+				var oTable = this.getView().byId("table0");
+				var oBinding = oTable.getBinding("items");
+				var sQuery = oEvent.getParameter("newValue");
+			
+				console.log("Search Query:", sQuery);
+			
+				if (sQuery) {
+					try {
+						// Update the filter to use the EQ operator for numerical values
+						var oFilter = new sap.ui.model.Filter({
+							path: "Full_name",
+							operator: sap.ui.model.FilterOperator.EQ,
+							value1: sQuery
+						});
+			
+						console.log("Filter created:", oFilter);
+			
+						// Apply the filter to the binding
+						oBinding.filter([oFilter]);
+			
+						console.log("Binding after filter:", oBinding);
+					} catch (error) {
+						console.error("Error creating or applying filter:", error);
+					}
+				} else {
+					// If the search field is empty, remove the filter
+					oBinding.filter([]);
+					console.log("Filter removed. Binding after filter:", oBinding);
+				}
+			},
+			
+			
+			
             
           
               onLogout: function () {
@@ -153,11 +143,10 @@ sap.ui.define([
                 // this.getView().byId("OpenDialog").open();
              },
              onOpenDetailDialog: function (oEvent) {
-                var oSelectedRow = oEvent.getSource().getBindingContext("mainModel").getObject();
+                var oSelectedRow = oEvent.getSource().getBindingContext("Students").getObject();
 
                 // Create a new JSONModel with the values from the selected row
                 var oModel = new JSONModel({
-                    Planned_study_date_edit: oSelectedRow.Planned_study_date,
                     Office_edit: oSelectedRow.Office,
                     Advisor_edit: oSelectedRow.Advisor_ID,
                     Gender_edit: oSelectedRow.Gender,
@@ -183,7 +172,6 @@ sap.ui.define([
                 if (oSo !== "") {
                     const oList = this._oTable;
                         const oBinding = oList.getBinding("items");
-                        const plannedStudyDate = this.byId("Planned_study_date").getDateValue();
                         let formattedDate = ""
                         if (plannedStudyDate instanceof Date && !isNaN(plannedStudyDate)) {
                              formattedDate = plannedStudyDate.toISOString().split('T')[0];
@@ -197,7 +185,6 @@ sap.ui.define([
                             "Office": this.byId("Office").getValue(),
                             "Advisor_ID": parseInt(this.byId("Advisor_ID").getValue(), 10),//this.byId("Advisor_ID").getValue(),
                             "Created_at": new Date(),
-                            "Planned_study_date": formattedDate,  
                             
                         });
                         oContext.created()
@@ -220,7 +207,7 @@ sap.ui.define([
             },
             onSuccessfulPatch: function () {
                 // Assuming "mainModel" is your main model instance
-                var mainModel = this.getView().getModel("mainModel");
+                var Students = this.getView().getModel("Students");
               
                 // Assuming "editModel" is your edit model instance
                 var editModel = this.getView().getModel("editModel");
@@ -229,10 +216,10 @@ sap.ui.define([
                 var updatedData = editModel.getProperty("/ID_edit");
               
                 // Update the main model with the updated data
-                mainModel.setProperty("mainModel>/StudentWithAdvisor", updatedData);
+                Students.setProperty("Students>/Students", updatedData);
               
                 // Refresh the bindings to update the UI
-                mainModel.refresh(); 
+                Students.refresh(); 
               },
               
             onUpdate: function () {
@@ -240,14 +227,13 @@ sap.ui.define([
                 if (oSo !== "") {
                     const oList = this._oTable;
                         // const oBinding = oList.getBinding("items");
-                        const plannedStudyDate = this.byId("Planned_study_date_edit").getDateValue();
                         let formattedDate = ""
                         if (plannedStudyDate instanceof Date && !isNaN(plannedStudyDate)) {
                              formattedDate = plannedStudyDate.toISOString().split('T')[0];
                         }         
                         
                         try{
-                            const endpoint = "https://port4004-workspaces-ws-wml98.us10.trial.applicationstudio.cloud.sap/StudentServices/Students";
+                            const endpoint = "http://localhost:4004/StudentServices/Students";
 
                             // Assuming you have the updateData object defined as mentioned in your question
                             const updateData = {
@@ -302,7 +288,7 @@ sap.ui.define([
             },
             onDeleteStudent: async function () {
                 try {
-                    const endpoint = "https://port4004-workspaces-ws-wml98.us10.trial.applicationstudio.cloud.sap/StudentServices/Students";
+                    const endpoint = "http://localhost:4004/StudentServices/Students";
             
                     // You may want to replace 'yourStudentID' with the actual ID of the student you want to delete
                     const studentID = parseInt(this.byId("ID_edit").getValue(), 10);
@@ -348,9 +334,9 @@ sap.ui.define([
 
             var oSelected = this.byId("table0").getSelectedItem();
             if(oSelected){
-                var oSalesOrder = oSelected.getBindingContext("mainModel").getObject().ID;
+                var oSalesOrder = oSelected.getBindingContext("Students").getObject().ID;
             
-                oSelected.getBindingContext("mainModel").delete("$auto").then(function () {
+                oSelected.getBindingContext("Students").delete("$auto").then(function () {
                     MessageToast.show(oSalesOrder + " SuccessFully Deleted");
                 }.bind(this), function (oError) {
                     MessageToast.show("Deletion Error: ",oError);
@@ -362,13 +348,13 @@ sap.ui.define([
         },
         rebindTable: function(oTemplate, sKeyboardMode) {
             this._oTable.bindItems({
-                path: "mainModel>/StudentWithAdvisor",
+                path: "Students>/Students",
                 template: oTemplate,
                 templateShareable: true
             }).setKeyboardMode(sKeyboardMode);
         },
         onInputChange: function(){
-            this.refreshModel("mainModel");
+            this.refreshModel("Students");
 
         },
         
@@ -381,7 +367,7 @@ refreshModel: function (sModelName, sGroup){
         },
         makeChangesAndSubmit: function (resolve, reject, sModelName,sGroup){
             const that = this;
-            sModelName = "mainModel";
+            sModelName = "Students";
             sGroup = "$auto";
             if (that.getView().getModel(sModelName).hasPendingChanges(sGroup)) {
                 that.getView().getModel(sModelName).submitBatch(sGroup).then(oSuccess =>{
@@ -407,20 +393,16 @@ refreshModel: function (sModelName, sGroup){
             this.oReadOnlyTemplate = new sap.m.ColumnListItem({
             cells: [
                 new sap.m.Text({
-                    text: "{mainModel>ID}"
+                    text: "{Students>ID}"
                 }),
                 new sap.m.Text({
-                    text: "{mainModel>Full_name}"
+                    text: "{Students>Full_name}"
                 }),
                 new sap.m.Text({
-                    text: "{mainModel>Office}"
+                    text: "{Students>Office}"
                 }),
-                new sap.m.Text({
-                    text: "{mainModel>AdvisorName}"
-                }),
-                new sap.m.Text({
-                    text: "{mainModel>Planned_study_date}"
-                }),
+              
+             
                 new sap.m.Button({
                     id: "editModeSIngleButton",
                     visible: true,

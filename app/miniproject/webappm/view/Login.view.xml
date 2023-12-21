@@ -1,0 +1,53 @@
+<mvc:View controllerName="miniproject.controller.Login"
+  xmlns:core="sap.ui.core"
+  xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+  xmlns:form="sap.ui.layout.form"
+  xmlns="sap.m">
+
+  <App>
+    <pages>
+      <Page title="Login">
+      
+        <content>
+          <VBox justifyContent="Center" alignItems="Center" height="100%">
+            <!-- Panel instead of Card -->
+            <Panel headerText="Login" width="300px">
+              <content>
+                <!-- Email Input -->
+                <Input
+                  placeholder="Email"
+                  type="Email"
+                  value="{/email}"
+                  width="100%"
+                  required="true"
+                  id="username"
+                  liveChange=".onInputChange" />
+
+                <!-- Password Input -->
+                <Input
+                  placeholder="Password"
+                  type="Password"
+                  value="{/password}"
+                  width="100%"
+                  required="true"
+                  id="pwd"
+                  liveChange=".onInputChange" />
+
+                <!-- Login Button -->
+                <Button
+                  text="Login"
+                  type="Emphasized"
+                  press="onLoginClick"
+                  width="100%" />
+
+                <!-- Link for Forgot Password -->
+                <Link text="Forgot Password?" press=".onForgotPasswordPress" />
+              
+              </content>
+            </Panel>
+          </VBox>
+        </content>
+      </Page>
+    </pages>
+  </App>
+</mvc:View>

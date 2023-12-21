@@ -1,4 +1,4 @@
-<mvc:View controllerName="miniproject.controller.Home"
+<mvc:View controllerName="miniproject.controller.List"
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
     xmlns:form="sap.ui.layout.form"
      xmlns:core="sap.ui.core"
@@ -9,9 +9,9 @@
      <Shell id="shell">
         <App id="app">
             <pages>
-                <Page id="page" title="{i18n>title}">
+                <Page id="page" title="gfdgdfg">
                     <content>
-                        <Table items="{mainModel>/StudentServices}" id="table0" mode="SingleSelectLeft" selectionChange="onSelect">
+                        <Table items="{Students>/Students}" id="table0" mode="SingleSelectLeft" selectionChange="onSelect">
                             <headerToolbar>
                                 <OverflowToolbar>
                                     <content> 
@@ -62,10 +62,7 @@ id="Advisor_ID"
                                                     <!-- <Input id="Advisor_ID"  /> -->
                                                     <Label text="Gender" />
                                                     <Input id="Gender"  />
-                                                    <Label text="Planned Study Date" />
-                                                    <!-- <Input type="date" id="Planned_study_date"  /> -->
-                                                    <DatePicker id="Planned_study_date" value="{/Planned_study_date}" />
-
+                                                  
                                                 </form:content>
                                             </form:SimpleForm>
                                         </Dialog>
@@ -130,9 +127,7 @@ id="Advisor_ID"
                 <Input id="Office_edit" value="{editModel>/Office_edit}" />
                 <Label text="Gender" />
                 <Input id="Gender_edit" value="{editModel>/Gender_edit}" />
-                <Label text="Planned Study Date" />
-                <DatePicker id="Planned_study_date_edit" value="{editModel>/Planned_study_date_edit}" />
-            </VBox>
+                  </VBox>
         </form:content>
     </form:SimpleForm>
 </IconTabFilter>
@@ -172,11 +167,10 @@ id="Advisor_ID"
                             <items>
                                 <ColumnListItem type="Active" id="item0">
                                     <cells>
-                                  <Text id="id1" text="{mainModel>ID}"/>
-                                <Text id="id2" text="{mainModel>Full_name}"/>
-                                <Text id="id3" text="{mainModel>Office}"/>
-                                <Text id="id4" text="{mainModel>Advisor_ID}"/>
-                                <Text id="id5" text="{mainModel>Planned_study_date}"/>
+                                  <Text id="id1" text="{Students>ID}"/>
+                                <Text id="id2" text="{Students>Full_name}"/>
+                                <Text id="id3" text="{Students>Office}"/>
+                                <Text id="id4" text="{Students>Advisor_ID}"/>
                                         <Button id="id6" icon="sap-icon://edit" press="onSelect" />
                                     </cells>
                                 </ColumnListItem>
@@ -197,16 +191,8 @@ id="Advisor_ID"
                                         <Label text="Office" />
                                     </header>
                                 </Column>
-                                <Column>
-                                    <header>
-                                        <Label text="Advisor" />
-                                    </header>
-                                </Column>
-                                <Column>
-                                    <header>
-                                        <Label text="Planned Study Date" />
-                                    </header>
-                                </Column>
+                               
+                                
                                       <Column>
                                     <header>
                                         <Label text="Action" />

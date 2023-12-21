@@ -1,31 +1,45 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller",
-    "sap/m/MessageToast",
-    "sap/m/ColumnListItem",
-    "sap/m/Input"
-],
-    /**
-     * @param {typeof sap.ui.core.mvc.Controller} Controller
-     */
+	"sap/ui/core/mvc/Controller",
+    "sap/ui/core/routing/History"
+], function(Controller,History) {
+	"use strict";
 
-    function (Controller, MessageToast, ColumnListItem,Input) {
-        "use strict";
+	return Controller.extend("miniproject.controller.Login", {
 
-        return Controller.extend("miniproject.controller.Login", {
-            onLoginClick: function(){
-                var username = this.getView().byId('username').getValue();
-                var pwd = this.getView().byId('pwd').getValue();
-                if(username=='admin' && pwd =='admin'){
-                    // document.write('mskfhnaeuihf') // redirect to home view
-                    this.getOwnerComponent().getRouter().navTo("dashboard");
-
-                }else{
-                    // alert('ndkjeahf')
-                    MessageToast.show('Invalid credentials');
-
-                }
+        onInit: function() {
+           
+            window.loginController = this;
+            var oLoginController = window.loginController;
+            if (oLoginController) {
+                var oUsernameInput = oLoginController.byId("user"); // Replace with your actual ID
+                var oPasswordInput = oLoginController.byId("pwd"); // Replace with your actual ID
+                oUsernameInput.setValue("");
+                oPasswordInput.setValue("");
+  
             }
-       
+            // You can add initialization logic here if needed
+          },
+		
+		onBtnClick : function(){
+			var oUser = this.getView().byId("user").getValue();  //get input value data in oUser variable 
+			var oPwd = this.getView().byId("pwd").getValue();    //get input value data in oPwd variable
+			
+			if(oUser==="admin" && oPwd==="admin"){	
+                localStorage.setItem("isLoggedIn", "true");
+                this.getOwnerComponent().getRouter().navTo("RouteMaster");			
+				// document.write("Login Successfully");
+			}
+            else if(oUser==="user" && oPwd==="user"){	
+                localStorage.setItem("isLoggedIn", "true");
+                    this.getOwnerComponent().getRouter().navTo("RouteUsers");	
+            }
+            else{
+				alert("Re-Enter your Detail");
+			}
+			
+			
+		},
+      
 
-        });
-    });
+	});
+});

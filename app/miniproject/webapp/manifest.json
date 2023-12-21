@@ -1,5 +1,5 @@
 {
-  "_version": "1.59.0",
+  "_version": "1.58.0",
   "sap.app": {
     "id": "miniproject",
     "type": "application",
@@ -12,8 +12,8 @@
     "resources": "resources.json",
     "sourceTemplate": {
       "id": "@sap/generator-fiori:basic",
-      "version": "1.11.5",
-      "toolsId": "5306e3d7-4381-4f65-a428-d46080d9047c"
+      "version": "1.11.3",
+      "toolsId": "10aa73b5-cc9c-422f-9e41-20adc84c3ff7"
     },
     "dataSources": {
       "mainService": {
@@ -23,6 +23,73 @@
           "annotations": [],
           "localUri": "localService/metadata.xml",
           "odataVersion": "4.0"
+        }
+      },
+      "mainService_7": {
+        "uri": "/StudentServices/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      },
+      "mainService_1": {
+        "uri": "/odata/v4/users/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      },
+      "mainService_2": {
+        "uri": "/odata/v4/schools/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      },
+      "mainService_3": {
+        "uri": "/odata/v4/School_courses/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      },
+      "mainService_4": {
+        "uri": "/odata/v4/Student_communications/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      },
+      "mainService_5": {
+        "uri": "/odata/v4/Student_applications/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "mini_project-manage": {
+          "semanticObject": "mini_project",
+          "action": "manage",
+          "title": "{{flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
         }
       }
     }
@@ -55,8 +122,7 @@
         "sap.ui.comp": {},
         "sap.ui.generic.app": {},
         "sap.ui.table": {},
-        "sap.ushell": {},
-        "sap.tnt": {}
+        "sap.ushell": {}
       }
     },
     "contentDensities": {
@@ -70,8 +136,7 @@
           "bundleName": "miniproject.i18n.i18n"
         }
       },
-      "mainModel": {
-        "type": "sap.ui.model.odata.v4.ODataModel",
+      "": {
         "dataSource": "mainService",
         "preload": true,
         "settings": {
@@ -81,15 +146,34 @@
           "earlyRequests": true,
           "groupId": "$auto"
         }
+      },
+
+      "Students": {
+        "dataSource": "mainService_7",
+        "preload": true,
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true,
+          "groupId": "$auto"
+        }
+      },
+      "Users": {
+        "dataSource": "mainService_1", 
+        "preload": true,
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
       }
     },
     "resources": {
       "css": [
         {
           "uri": "css/style.css"
-        },
-        {
-          "uri": "RevealGrid/RevealGrid.css"
         }
       ]
     },
@@ -112,29 +196,38 @@
           ]
         },
         {
-          "pattern": "home",
-          "name": "home",
-          "target": "home"
+          "name": "RouteMaster", 
+          "pattern": "Dashboard",
+          "target": ["TargetMaster"]
         },
         {
-          "pattern": "dashboard",
-          "name": "dashboard",
-          "target": "dashboard"
+					"name": "RouteStudent",
+					"pattern": "Student",
+          "target": [
+            "RouteStudent"
+          ]
+				},
+        {
+          "name": "RouteUsers",
+          "pattern": "Users",
+          "target": [
+            "RouteUsers"
+          ]
+        },
+        
+        {
+          "name": "RouteList",
+          "pattern": "List",
+          "target": [
+            "RouteList"
+          ]
         },
         {
-          "pattern": "menu",
-          "name": "menu",
-          "target": "menu"
-        },
-        {
-          "pattern": "item1",
-          "name": "item1",
-          "target": ["item1Detail"]
-        },
-        {
-          "pattern": "item2",
-          "name": "item2",
-          "target": ["item2Detail"]
+          "name": "RouteUser",
+          "pattern": "User",
+          "target": [
+            "RouteUser"
+          ]
         }
       ],
       "targets": {
@@ -145,27 +238,45 @@
           "viewId": "Login",
           "viewName": "Login"
         },
-        "home": {
-          "viewName": "Home",
-          "viewLevel": 2
+        "TargetMaster": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Dashboard",
+          "viewName": "Dashboard"
         },
-        "dashboard": {
-          "viewName": "Dashboard",
-          "viewLevel": 2
-        },
-        "menu": {
-          "viewName": "Menu",
-          "viewLevel": 2
-        },
-        "item1Detail": {
-
-          "viewName": "DetailView",
-          "viewLevel": 3
-        },
-        "item2Detail": {
-      
-          "viewName": "AnotherDetailView",
-          "viewLevel": 3
+        
+        
+        
+        "RouteStudent": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Student",
+          "viewName": "Student"
+        },        
+        "RouteUsers": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Users",
+          "viewName": "Users"
+        }
+        ,        
+        "RouteList": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "List",
+          "viewName": "List"
+        }
+        ,        
+        "RouteUser": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "User",
+          "viewName": "User"
         }
       }
     },
@@ -174,21 +285,6 @@
       "type": "XML",
       "async": true,
       "id": "App"
-    },
-    "config": {
-      "sample": {
-        "stretch": true,
-        "files": [
-          "V.view.xml",
-          "C.controller.js",
-          "manifest.json",
-          "cardManifest.json",
-          "model/cities.json",
-          "model/products.json",
-          "RevealGrid/RevealGrid.js",
-          "RevealGrid/RevealGrid.css"
-        ]
-      }
     }
   }
 }

@@ -1,16 +1,15 @@
-// Dashboard.js
 sap.ui.define([
-    "sap/ui/core/mvc/Controller",
-    "sap/m/MessageToast"
-  ], function (Controller,MessageToast) {
-    "use strict";
-  
-    return Controller.extend("miniproject.controller.Dashboard", {
+	"sap/ui/core/mvc/Controller",
+	"sap/ui/model/json/JSONModel",
+	"sap/ui/core/format/DateFormat",
+	"sap/m/MessageToast",
+	"sap/ui/integration/library",
+	"sap/ui/core/date/UI5Date"
+], function (Controller, JSONModel, DateFormat, MessageToast, integrationLibrary, UI5Date) {
+	"use strict";
 
+	return Controller.extend("miniproject.controller.Users", {
       onInit: function() {
-
-       
-        this._oTable = this.byId("table0");
         if (!localStorage.getItem("isLoggedIn")) {
             alert("please login first");
             this.getOwnerComponent().getRouter().navTo("RouteLogin");
@@ -18,6 +17,7 @@ sap.ui.define([
         
         // You can add initialization logic here if needed
       },
+      
       logout:function(){
      
         alert("You are successfully logedout");
@@ -34,29 +34,18 @@ sap.ui.define([
         this.getOwnerComponent().getRouter().navTo("RouteLogin");	
      
       },
-
-      onItemPress: function (event) {
-        var key = event.getParameter("item").getKey();
-        this.byId("SplitAppDemo").toDetail(this.createId(key));
-      },
-  
-      onDetailNavigate: function (event) {
-        var key = event.getParameter("toId");
-        this.byId("sideNavigation").setSelectedKey(key);
-      },
-      onCollapseExpandPress: function () {
-        var oSideNavigation = this.byId("sideNavigation");
-        var bExpanded = oSideNavigation.getExpanded();
-  
-        oSideNavigation.setExpanded(!bExpanded);
-        
-      },
-
-     
-     
-     
+      resolveUrl: function(sUrl) {
+        return sap.ui.require.toUrl("miniproject/assets/avatars/" + sUrl);
+    }
+      ,
+      view_back:function(){
+          this.getOwnerComponent().getRouter().navTo("RouteStudent");	
+      },	onAction: function (oEvent) {
+        if (oEvent.getParameter("type") === integrationLibrary.CardActionType.Navigation) {
+            MessageToast.show("URL: " + oEvent.getParameter("parameters").url);
+        }
+    },
 
     });
-  
   });
   

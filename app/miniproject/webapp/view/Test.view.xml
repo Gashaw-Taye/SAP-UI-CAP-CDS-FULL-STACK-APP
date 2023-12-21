@@ -1,0 +1,59 @@
+<mvc:View
+  controllerName="miniproject.controller.Student"
+   xmlns:mvc="sap.ui.core.mvc"
+  xmlns:l="sap.ui.layout"
+  xmlns:m="sap.ui.webc.main"
+  xmlns:fiori="sap.ui.webc.fiori"
+  xmlns="sap.m"
+  xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+  height="100%">
+
+		
+			<Page
+				id="detailDetail"
+				title="Detail Detail"
+				backgroundDesign= "Solid"
+				showNavButton="true"
+				navButtonPress=".onPressDetailBack">
+				<VBox class="sapUiSmallMargin">
+					 <l:HorizontalLayout class="sapUiContentPadding">
+          <m:Card width="400px">
+            <m:header>
+              <m:CardHeader titleText="User list" subtitleText="Direct report">
+                <m:avatar>
+                  <m:Icon name="group" />
+                </m:avatar>
+                <m:action>
+                  <m:Button design="Emphasized" text="View All" />
+                </m:action>
+              </m:CardHeader>
+            </m:header>
+            <m:List items="{Users>/Users}">
+              <m:StandardListItem
+                description="{Users>Full_name}"
+                image="{value:'man_avatar_3.png', formatter: '.resolveUrl'}"
+                text="{Users>Full_name}" />
+              <m:StandardListItem
+                description="{Users>Role}"
+                image="{value:'woman_avatar_5.png', formatter: '.resolveUrl'}"
+                text="{Users>Email}" />
+              <m:StandardListItem
+                description="{Users>Role}"
+                image="{value:'woman_avatar_4.png', formatter: '.resolveUrl'}"
+                text="{Users>Email}" />
+            </m:List>
+          </m:Card>
+        </l:HorizontalLayout>
+				</VBox>
+        
+    	<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button type="Accept" text="Accept"/>
+				<Button type="Reject" text="Reject"/>
+			</OverflowToolbar>
+		</footer>
+			</Page>	
+
+</mvc:View>
+

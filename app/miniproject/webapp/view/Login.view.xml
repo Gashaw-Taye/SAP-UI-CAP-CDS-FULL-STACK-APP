@@ -1,52 +1,33 @@
-<mvc:View controllerName="miniproject.controller.Login"
-  xmlns:core="sap.ui.core"
-  xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
-  xmlns:form="sap.ui.layout.form"
-  xmlns="sap.m">
-
+<mvc:View xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:form="sap.ui.layout.form" controllerName="miniproject.controller.Login" displayBlock="true">
   <App>
     <pages>
-      <Page title="Login">
-      
+      <Page title="Student Advisory Service Login Page">
         <content>
-          <VBox justifyContent="Center" alignItems="Center" height="100%">
-            <!-- Panel instead of Card -->
-            <Panel headerText="Login" width="300px">
-              <content>
-                <!-- Email Input -->
-                <Input
-                  placeholder="Email"
-                  type="Email"
-                  value="{/email}"
-                  width="100%"
-                  required="true"
-                  id="username"
-                  liveChange=".onInputChange" />
-
-                <!-- Password Input -->
-                <Input
-                  placeholder="Password"
-                  type="Password"
-                  value="{/password}"
-                  width="100%"
-                  required="true"
-                  id="pwd"
-                  liveChange=".onInputChange" />
-
-                <!-- Login Button -->
-                <Button
-                  text="Login"
-                  type="Emphasized"
-                  press="onLoginClick"
-                  width="100%" />
-
-                <!-- Link for Forgot Password -->
-                <Link text="Forgot Password?" press=".onForgotPasswordPress" />
-              
-              </content>
-            </Panel>
+          <VBox fitContainer="true" justifyContent="Center" alignItems="Center" alignContent="Center">
+            <items>
+					<form:SimpleForm>      <!--create a SimpleForm and set library in xmlns for form-->
+						<form:content>
+							<Title id="__xmlview0--title" text="Please Fill Username and Password"/>
+							<Label class="label" text="UserName"/>
+							<Input class="input" id="user" placeholder="Enter UserName"/>
+							<Label text="Password"/>
+							<Input class="pwdClass" id="pwd" type="Password" placeholder="Enter Password"/>
+						</form:content>
+					<Button icon="sap-icon://visits" id="btn" text="Login" type="Accept" press="onBtnClick"/>
+					</form:SimpleForm>				
+            </items>
           </VBox>
         </content>
+        <footer>
+          <Bar>
+            <contentLeft>
+              <Text text="Copyright@2023 IDP SAP TRAINING "/>
+            </contentLeft>
+            <contentRight>
+              <Text text="User Login"/>
+            </contentRight>
+          </Bar>
+        </footer>
       </Page>
     </pages>
   </App>

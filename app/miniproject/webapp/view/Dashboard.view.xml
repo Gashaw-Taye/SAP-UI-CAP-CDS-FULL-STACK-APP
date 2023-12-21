@@ -1,105 +1,69 @@
 <mvc:View
-	controllerName="miniproject.controller.C"
-	xmlns="sap.m"
-	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
-          <Bar>
-            <contentLeft>
-                <Button icon="sap-icon://menu2" custom:splitAppMode="HideMode"/>
-            </contentLeft>
-            <contentMiddle>
-                <SearchField id="searchFieldd" width="80%" placeholder="Search" search=".onSearch"/>
-            </contentMiddle>
-            <contentRight>
-                <Button icon="sap-icon://log" press="onLogout"/>
-            </contentRight>
-        </Bar>
-	<SplitApp
-		id="SplitAppDemo"
-		initialDetail="detail"
-		initialMaster="master">
-		<detailPages>
-			<Page
-				id="detail"
-				title="Detail 1"
-				backgroundDesign= "Solid">
-				<Label text="Detail page 1" />
-				<!-- <content> -->
-				    <VBox class="sapUiTinyMargin">
+  controllerName="miniproject.controller.Dashboard"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns:l="sap.ui.layout"
+  xmlns:m="sap.m"
+  xmlns:fiori="sap.ui.webc.fiori"
+  xmlns:tnt="sap.tnt"
+  xmlns="sap.m"
+  xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+  class="side-navigation-demo"
+  height="100%">
 
-				<!-- <Shell> -->
-						<mvc:XMLView viewName="miniproject.view.Home"/>
-						<!-- </Shell> -->
-						</VBox>
-					<!-- </content> -->
-				<Button text="Go to Detail page2" press=".onPressNavToDetail" />
-			</Page>
-			<Page
-				id="detailDetail"
-				title="Detail Detail"
-				backgroundDesign= "Solid"
-				showNavButton="true"
-				navButtonPress=".onPressDetailBack">
-				<VBox class="sapUiSmallMargin">
-					<Label text="This is Detail Page2" />
-					<Text text="Here you could change the Split Application mode. After the mode change, resize the browser window to see the difference in the master form behaviour." />
-					<RadioButtonGroup columns="1" width="500px" class="sapUiMediumMarginBottom" select=".onPressModeBtn">
-						<RadioButton id="RB1-1" text="show/hide" selected="true" custom:splitAppMode="ShowHideMode" />
-						<RadioButton id="RB1-2" text="stretch/compress" custom:splitAppMode="StretchCompressMode" />
-						<RadioButton id="RB1-3" text="hide" custom:splitAppMode="HideMode" />
-						<RadioButton id="RB1-4" text="popover" custom:splitAppMode="PopoverMode" />
-					</RadioButtonGroup>
-				</VBox>
-			</Page>
+  <SplitApp
+    id="SplitAppDemo"
+    initialDetail="detailDetail"
+    initialMaster="master"
+    detailNavigate="onDetailNavigate"> <!-- Add detailNavigate event handler -->
+
+    <detailPages>
+      <mvc:XMLView viewName="miniproject.view.Student" id="detail2" />
+      <mvc:XMLView viewName="miniproject.view.User" id="detail" />
+       <mvc:XMLView viewName="miniproject.view.Test" id="detailDetail" />   
+      <mvc:XMLView viewName="miniproject.view.List" id="detailDetail2" />      
+    </detailPages>
+
+    <masterPages >
+      <Page id="master" title="Dashboard" backgroundDesign="List" >
+       	<Button
+            text=""
+            icon="sap-icon://menu2"
+            press=".onCollapseExpandPress" />
+
+        <tnt:SideNavigation id="sideNavigation" selectedKey="detailDetail" itemSelect="onItemPress">
+          <tnt:NavigationList
+            id="navigationList"
+            width="320px"
+            selectedKey="detail"
+            itemSelect="onItemPress"
+            expanded="{/isSideNavExpanded}">
             
-			<Page
-				id="detail2"
-				title="Detail 3 Page"
-				backgroundDesign= "Solid"
-				showNavButton="true"
-				navButtonPress=".onPressDetailBack">
-				<Label text="This is Detail Page3" />
-				 <VBox class="sapUiTinyMargin">
-						<mvc:XMLView viewName="miniproject.view.Table"/>
-				 </VBox>
-				<!-- <Input/>
-				<Label text="Label 2" />
-				<Input/>
-				<Label text="Label 3" />
-				<Input/>
-				<Label text="Label 4" />
-				<Input/>
-				<Label text="Label 5" />
-				<Input/> -->
-					
-			</Page>
+            <!-- Navigation Items -->
+            
+            <tnt:NavigationListItem text="User Management" key="rootItem1" icon="sap-icon://employee" expanded="false">
+              <tnt:NavigationListItem text="User Registration" key="detail" />
+              <tnt:NavigationListItem text="Users Details" key="detailDetail" />
+               <tnt:NavigationListItem text="Users Details list" key="detailDetail2" />
+            </tnt:NavigationListItem>
 
-		</detailPages>
-		<masterPages>
-            <Page
-				id="master"
-				title="Master 1"
-				backgroundDesign= "List">
-				<List>
-					<StandardListItem title="To Master2" type="Navigation" press=".onPressGoToMaster" />
-				</List>
-			</Page>
-			<Page
-				id="master2"
-				title="Master 2"
-				backgroundDesign="List"
-				showNavButton="true"
-				navButtonPress=".onPressMasterBack">
-				<List itemPress=".onListItemPress">
-					<items>
-						<StandardListItem title="To Detail 1" type="Active" custom:to="detail" />
-						<StandardListItem title="To Detail 2" type="Active" custom:to="detailDetail" />
-						<StandardListItem title="To Detail 3" type="Active" custom:to="detail2" />
-					</items>
-                    
-				</List>
-			</Page>
-      
-		</masterPages>
-	</SplitApp>
+            <tnt:NavigationListItem text="Student Management" key="rootItem2" icon="sap-icon://learning-assistant" expanded="false">
+              <tnt:NavigationListItem text="Student Registration" key="detail2" />
+              <tnt:NavigationListItem text="Advisor-Student Communication" key="detail2" />
+            </tnt:NavigationListItem>
+
+            <tnt:NavigationListItem text="School Management:" key="rootItem3" icon="sap-icon://curriculum" expanded="false">
+              <tnt:NavigationListItem text="School Registration" key="detail" />
+              <tnt:NavigationListItem text="Courses Registration" key="detail2" />
+            </tnt:NavigationListItem>
+
+            <tnt:NavigationListItem text="Admissions" key="rootItem4" icon="sap-icon://study-leave" expanded="false">
+              <tnt:NavigationListItem text="Student Applications" key="detail"  />
+            </tnt:NavigationListItem>
+
+          </tnt:NavigationList>
+        </tnt:SideNavigation>
+        <Button id="btn" text="Logout" type="Accept" press="logout" class="sapMBarHeaderContentRight" />
+      </Page>
+    </masterPages>
+  </SplitApp>
 </mvc:View>

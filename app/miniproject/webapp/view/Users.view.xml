@@ -1,0 +1,67 @@
+<mvc:View
+  controllerName="miniproject.controller.Users"
+   xmlns:mvc="sap.ui.core.mvc"
+  xmlns:l="sap.ui.layout"
+  xmlns:m="sap.ui.webc.main"
+  xmlns:fiori="sap.ui.webc.fiori"
+  xmlns="sap.m"
+  xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+  height="100%">
+ <SplitApp
+		id="SplitAppDemo"
+		initialDetail="detail"
+		initialMaster="master">
+        
+		<detailPages>
+        
+			<Page
+				id="detail"
+				title="use list details"
+				backgroundDesign= "Solid">
+		<Table id="studentsTables" items="{Students>/Students}" >
+          <columns>
+            <Column>
+              <Text text="Full Name" />
+            </Column>
+            <Column>
+              <Text text="Gender" />
+            </Column>
+            <Column>
+              <Text text="Office" />
+            </Column>
+            <!-- Add more columns based on your entity properties -->
+          </columns>
+          <items>
+            <ColumnListItem>
+              <cells>
+                <Text text="{Students>Full_name}" />
+                <Text text="{Students>Gender}" />
+                <Text text="{Students>Office}" />
+                <!-- Add more cells based on your entity properties -->
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>              
+	</Page>				
+		</detailPages>
+		<masterPages>
+			<Page
+				id="master"
+				title="Main Menu"
+				backgroundDesign= "List">
+			   <List itemPress=".onListItemPress">
+					<items>
+						<StandardListItem title="Student Details" type="Active" custom:to="detail" />                       
+      
+					</items>
+                      <!-- Logout Button -->
+       
+				</List>
+                 <Button icon="sap-icon://visits" id="btn" text="Logout" type="Accept" press="logout" class="sapMBarHeaderContentRight" />
+     
+			</Page>
+		
+		</masterPages>
+	</SplitApp>     
+</mvc:View>
+

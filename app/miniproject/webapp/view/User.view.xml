@@ -1,0 +1,249 @@
+<!-- Student.view.xml -->
+<mvc:View
+ controllerName="miniproject.controller.User"
+  xmlns:html="http://www.w3.org/1999/xhtml" 
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m" 
+  xmlns:form="sap.ui.layout.form" 
+  xmlns:core="sap.ui.core"
+  xmlns:f="sap.f"
+  xmlns:micro="sap.suite.ui.microchart"
+  xmlns:fb="sap.ui.comp.filterbar"
+  xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" 
+  xmlns:svm="sap.ui.comp.smartvariants">
+  	<f:DynamicPage headerExpanded="{/headerExpanded}">
+  <!-- <Page title="Student List Report"> -->
+  	<f:title>
+				<f:DynamicPageTitle>
+					<f:heading>
+						<svm:SmartVariantManagement id="svm" showExecuteOnSelection="true" />
+					</f:heading>
+					<f:expandedContent>
+						<Label id="expandedLabel" text="No filters active" />
+					</f:expandedContent>
+					<f:snappedContent>
+						<Label id="snappedLabel" text="No filters active" />
+					</f:snappedContent>
+				</f:DynamicPageTitle>
+			</f:title>
+			<f:header>
+				<f:DynamicPageHeader>
+					<f:content>
+						<fb:FilterBar id="filterbar" persistencyKey="myPersKey" useToolbar="false" search=".onSearch" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad">
+							<fb:filterGroupItems>
+								<fb:FilterGroupItem name="Full_name" label="Full Name" groupName="Group1" visibleInFilterBar="true">
+									<fb:control>
+										<MultiComboBox
+											name="Full_name"
+											selectionChange=".onSelectionChange"
+											items="{
+												path: 'Users>/Users',
+												templateShareable: true
+											}"
+										>
+											<core:Item key="{key}" text="{Users>Full_name}"/>
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem name="role" label="role" groupName="Group1" visibleInFilterBar="true">
+									<fb:control>
+										<MultiComboBox
+											name="role"
+											selectionChange=".onSelectionChange"
+											items="{
+												path: 'Users>/Users',
+												templateShareable: true
+                       
+											}"
+										>
+											<core:Item key="{key}" text="{Users>Role}"/>
+                  
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem name="Email" label="Email ID" groupName="Group1" visibleInFilterBar="true">
+									<fb:control>
+										<MultiComboBox
+											name="Email"
+											selectionChange=".onSelectionChange"
+											items="{
+												path: 'Users>/Users',
+												templateShareable: true
+											}"
+										>
+											<core:Item key="{key}" text="{Users>Email}"/>
+                      
+										</MultiComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+							</fb:filterGroupItems>
+						</fb:FilterBar>
+					</f:content>
+				</f:DynamicPageHeader>
+			</f:header>
+      <f:content>
+    <!-- Your Student Page Content Here -->
+    <!-- <Table id="table0" items="{Students>/Students}"  mode="SingleSelectLeft" selectionChange="onSelect"> -->
+	<Table
+        id="table0"
+        mode="SingleSelectLeft" 
+        selectionChange="onSelect"
+        inset="false"
+        items="{
+          path: 'Users>/Users',
+          filters: {
+            path: 'Full_name',
+            operator: 'Contains',
+            value1: '${/searchValue}'
+          }
+        }"
+      >
+     <headerToolbar>
+                                <OverflowToolbar>
+                                    <content>
+                                        <ToolbarSpacer />
+                                         <SearchField id="searchField" width="20%" placeholder="Search" liveChange=".onSearch" />
+                                        <!-- <SearchField id="searchField" width="20%" placeholder="search" search=".onSearch" /> -->
+                                        <Button id="createButton" icon="sap-icon://add" tooltip="Create" visible="true" press="onOpenAddDialog">
+                                            <layoutData>
+                                                <OverflowToolbarLayoutData priority="NeverOverflow" />
+                                            </layoutData>
+                                        </Button>
+                                      
+
+                                         <!-- <Button id="saveButton" text="Save" type="Emphasized" visible="false" enabled="true" press="onSave" />
+                                        <Button id="editModeButton" visible="true" icon="sap-icon://edit" tooltip="Edit" press="onEditMode">
+                                            <layoutData>
+                                                <OverflowToolbarLayoutData priority="NeverOverflow" />
+                                            </layoutData>
+                                        </Button>  -->
+
+                                    </content>
+                                    <dependents>
+                                        <Dialog id="OpenDialog" title="Register student">
+                                            <buttons>
+                                                <Button id="confirmCreate" text="Create" press="onCreate" type="Emphasized" />
+                                                <Button id="cancelCreate" text="Cancel" press="onCancelDialog" type="Transparent" />
+                                            </buttons>
+                                            <form:SimpleForm editable="true" layout="ResponsiveGridLayout">
+                                                <form:content>                                                
+                                                    <Label text="Full Name"  />
+                                                    <Input id="Full_name" change="onNameChange"/>
+                                                 
+                                                      <Label text="Role" />
+                                                    <Select id="Role" selectedKey="{Role}">
+                                                    <items>
+                                                        <core:Item text="Select Role" key=""/>
+                                                        <core:Item text="Admin" key="Admin"/>
+                                                        <core:Item text="User" key="User"/>
+                                                        <core:Item text="Advisor" key="Advisor"/>
+                                                        <core:Item text="Counslor" key="Counslor"/>
+                                                    </items>
+                                                  </Select>
+                                                    <Label text="Email" />
+                                                    <Input id="Email"  />
+                                                    <Label text="Office" />
+                                                     <Input id="Office"  />
+                                                    <Label text="Password" />
+                                                    <Input id="Password"  />
+                                                    <InputListItem label="Account Status">
+                                                      <Switch state="true" />
+                                                    </InputListItem>                                       
+                                                </form:content>
+                                            </form:SimpleForm>
+                                        </Dialog>
+                                    </dependents>
+                                        <dependents>
+                                           <Dialog id="userDetailModal" title="Student Details -" binding="{edituserModel>/Users}">
+                                            <buttons>
+                                                <Button id="confirmCreateDetail" text="Create" press=".onUpdate" type="Emphasized" />
+                                                <Button id="cancelCreateDetail" text="Cancel" press="onCancelDialog" type="Transparent" />
+                                            </buttons>
+                                            <form:SimpleForm editable="true" layout="ResponsiveGridLayout">
+                                                <form:content>
+                                                    <!-- <Label text="Student DB ID" required="true" />
+                                                    <Input id="ID" change="onNameChange" /> -->
+                                                    <Input id="ID_edit" visible="false"   value="{edituserModel>/ID_edit}"/> 
+                                                    <Label text="Full Name" />
+                                                    <Input id="Full_name_edit" value="{edituserModel>/Full_name_edit}"/>
+                                                    <Label text="Role" />
+                                                    <Input id="Role_edit"  value="{edituserModel>/Role_edit}" />
+                                                    <Label text="Email" />
+                                                    <Input id="Email_edit"   value="{edituserModel>/Email_edit}"/>                                               
+
+                                                </form:content>
+                                            </form:SimpleForm>
+                                        </Dialog>
+                                    </dependents>
+                                </OverflowToolbar>
+                            </headerToolbar>
+      <!-- Columns definition -->
+      <columns>
+        <!-- Add columns based on your entity properties -->
+         <Column minScreenWidth="Tablet" demandPopin="true">
+          <header>
+          <Text text="User ID" />
+           </header>
+        </Column>
+        <Column minScreenWidth="Tablet" demandPopin="true">
+         <header>
+          <Text text="Full Name" />
+           </header>
+        </Column>
+        <Column minScreenWidth="Tablet" demandPopin="true"> 
+         <header>
+          <Text text="Role" />
+           </header>
+        </Column>
+        <Column minScreenWidth="Tablet" demandPopin="true">
+         <header>
+          <Text text="Email" />
+           </header>
+        </Column>
+        <Column minScreenWidth="Tablet" demandPopin="true">
+        <header>
+            <Text text="Actions" />
+        </header>
+    </Column>
+
+       
+      </columns>
+      <!-- Items definition -->
+      <items>
+        <ColumnListItem type="Active" id="item0" vAlign="Middle">
+          <cells>    
+             
+           <Text id="id1" text="{Users>ID}" />
+            <Text id="id2" text="{Users>Full_name}" />
+            <Text id="id3" text="{Users>Role}" />
+            <Text id="id4" text="{Users>Email}" />
+            <HBox>
+                <Button id="id6" icon="sap-icon://edit" press="onOpenDetailDialog"/>
+                <Button id="deleteButton" icon="sap-icon://delete" tooltip="Delete" visible="true" press="onDelete">
+                  <layoutData>
+                    <OverflowToolbarLayoutData priority="NeverOverflow" />
+                  </layoutData>
+                </Button>
+              </HBox>                                      
+          
+          </cells>
+        </ColumnListItem>
+      </items>
+    </Table>
+
+  	</f:content>
+  	<f:footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button type="Accept" text="Accept"/>
+				<Button type="Reject" text="Reject"/>
+			</OverflowToolbar>
+		</f:footer>
+		</f:DynamicPage>
+ 
+</mvc:View>
+
+
+
+
+
