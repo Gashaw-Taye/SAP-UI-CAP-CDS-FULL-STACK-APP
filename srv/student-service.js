@@ -125,7 +125,7 @@ module.exports = async function () {
   // Handle READ operation
   this.on('READ', 'Students', async (req) => {
 
-    sendEmail() 
+    // sendEmail() 
 
     const result = await SELECT.from(Students);
     return result;
