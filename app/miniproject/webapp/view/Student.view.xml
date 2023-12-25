@@ -164,7 +164,7 @@
             <Text id="id7" text="{Students>Planned_study_date}" />
             <HBox>
                 <Button id="id6" icon="sap-icon://edit" press="onOpenDetailDialog"/>
-                <Button id="deleteButton" icon="sap-icon://delete" tooltip="Delete" visible="true" press="onDelete">
+                <Button id="deleteButton" icon="sap-icon://delete" tooltip="Delete" visible="true" press="confirm">
                   <layoutData>
                     <OverflowToolbarLayoutData priority="NeverOverflow" />
                   </layoutData>

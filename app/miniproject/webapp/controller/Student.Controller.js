@@ -3,8 +3,9 @@ sap.ui.define([
   "sap/ui/core/mvc/Controller",
   "sap/m/MessageToast",
   "sap/ui/model/json/JSONModel",
+  "sap/m/MessageBox",
  
-  ], function (Controller, MessageToast, JSONModel) {
+  ], function (Controller, MessageToast, JSONModel,MessageBox) {
     "use strict";
   
     return Controller.extend("miniproject.controller.Student", {
@@ -235,23 +236,41 @@ onSave: function(){
 
   },
 
-  onDelete: function(){
-    // alert("gashu man")
-    	// MessageBox.confirm("Approve purchase order 12345?");  
-    var oSelected = this.byId("table0").getSelectedItem();
-    if(oSelected){
+  confirm: function(oEvent) {
+    var oRecord = this.byId("table0").getSelectedItem();
+
+    MessageBox.show(
+        "This message should appear in the message box.", {
+            icon: MessageBox.Icon.INFORMATION,
+            title: "My message box title",
+            actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+            emphasizedAction: MessageBox.Action.YES,
+            onClose: function(oAction) {
+                if (oAction === 'YES') {
+                    this.onDelete(oRecord); // Call the function using 'this.onDelete'
+                }
+            }.bind(this) // Ensure 'this' refers to the controller within the onClose callback
+        }
+    );
+},
+
+onDelete: function(oRecord) {
+    var oSelected = oRecord;
+    // alert(oRecord);
+
+    if (oSelected) {
         var oSalesOrder = oSelected.getBindingContext("Students").getObject().ID;
-    
-        oSelected.getBindingContext("Students").delete("$auto").then(function () {
-            MessageToast.show("a Student with ID " + oSalesOrder + " SuccessFully Deleted");
-        }.bind(this), function (oError) {
-            MessageToast.show("Deletion Error: ",oError);
+
+        oSelected.getBindingContext("Students").delete("$auto").then(function() {
+            MessageToast.show("A Student with ID " + oSalesOrder + " Successfully Deleted");
+        }.bind(this), function(oError) {
+            MessageToast.show("Deletion Error: " + oError);
         });
     } else {
         MessageToast.show("Please Select a Row to Delete");
     }
-    
-  },
+}
+,
 
   // daynamic search route begin
 
