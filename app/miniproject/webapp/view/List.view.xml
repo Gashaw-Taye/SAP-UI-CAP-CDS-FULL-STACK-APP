@@ -9,7 +9,7 @@
      <Shell id="shell">
         <App id="app">
             <pages>
-                <Page id="page" title="gfdgdfg">
+                <Page id="page" title="List">
                     <content>
                         <Table items="{Students>/Students}" id="table0" mode="SingleSelectLeft" selectionChange="onSelect">
                             <headerToolbar>

@@ -8,7 +8,9 @@
   xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
   height="100%">
 
-		
+		  <Shell id="shell">
+        <App id="app">
+            <pages>
 			<Page
 				id="detailDetail"
 				title="Detail Detail"
@@ -54,6 +56,9 @@
 			</OverflowToolbar>
 		</footer>
 			</Page>	
+            </pages>
+        </App>
+    </Shell>
 
 </mvc:View>
 

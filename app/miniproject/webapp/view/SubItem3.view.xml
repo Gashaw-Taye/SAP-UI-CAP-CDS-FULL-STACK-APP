@@ -1,0 +1,10 @@
+<mvc:View
+  controllerName="miniproject.controller.SubItem3"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:mvc="sap.ui.core.mvc"
+     displayBlock="true"
+    xmlns="sap.m">
+
+  <!-- Your content for SubItem1 goes here -->
+
+</mvc:View>

@@ -1,16 +1,16 @@
 <!-- Student.view.xml -->
 <mvc:View
- controllerName="miniproject.controller.Student"
+ controllerName="miniproject.controller.Advisor_Student_Communication"
   xmlns:mvc="sap.ui.core.mvc"
   xmlns="sap.m" 
   xmlns:form="sap.ui.layout.form" 
   xmlns:core="sap.ui.core"
   xmlns:f="sap.f"
 >
-  <Shell id="shell">
+ <Shell id="shell">
         <App id="app">
             <pages>
-                <Page id="page" title="student list">
+                <Page id="page" title="advisor student comunication">
   	<!-- <f:DynamicPage headerExpanded="{/headerExpanded}"> -->
     <f:DynamicPage headerExpanded="{editModel>/headerExpanded}">
   <!-- <Page title="Student List Report"> -->
@@ -26,7 +26,7 @@
         inset="false"
 
         
-        items="{Students>/Students}"
+        items="{comm>/Student_communications}"
       >
      <headerToolbar>
                                 <OverflowToolbar>
@@ -56,22 +56,17 @@
                                                 <Button id="cancelCreate" text="Cancel" press="onCancelDialog" type="Transparent" />
                                             </buttons>
                                             <form:SimpleForm editable="true" layout="ResponsiveGridLayout">
-                                                <form:content>                                                
-                                                    <Label text="Full Name"  />
-                                                    <Input id="Full_name" change="onNameChange"/>
-                                                    <Label text="Gender" />
-                                                    <Select id="Gender" selectedKey="{Gender}">
-                                                    <items>
-                                                        <core:Item text="Select Gender" key=""/>
-                                                        <core:Item text="Male" key="Male"/>
-                                                        <core:Item text="Female" key="female"/>
-                                                    </items>
-                                                  </Select>
-                                                    <Label text="Office" />
-                                                     <Input id="Office"  />
-                                                    <Label text="Advisor_ID" />
-                                                    <Input id="Advisor_ID"  />
-                                                    <DatePicker id ="Planned_study_date"  />                                                
+                                                <form:content>  
+                                                <Label text="Id"  />
+                                                    <Input id="Id" change="onNameChange"/>                                                 
+                                                    <Label text="Student"  />
+                                                    <Input id="student" change="onNameChange"/>                                                   
+                                                    <Label text="Message" />
+                                                     <Input id="Message"  />
+                                                    <Label text="User" />
+                                                    <Input id="User"  />
+                                                    <Label text="Updated_by" />
+                                                     <Input id="Updated_by"  />                                            
                                                 </form:content>
                                             </form:SimpleForm>
                                         </Dialog>
@@ -86,20 +81,16 @@
                                                 <form:content>
                                                     <!-- <Label text="Student DB ID" required="true" />
                                                     <Input id="ID" change="onNameChange" /> -->
-                                                    <Input id="ID_edit" visible="false"   value="{editModel>/ID_edit}"/> 
-                                                    <Label text="Full Name" />
-                                                    <Input id="Full_name_edit" value="{editModel>/Full_name_edit}"/>
-                                                    <Label text="Office" />
-                                                    <Input id="Office_edit"  value="{editModel>/Office_edit}" />
-                                                    <Label text="Advisor" />
-                                                    <Input id="Advisor_edit"   value="{editModel>/Advisor_edit}"/>
-                                                    <Label text="Gender" />
-                                                    <Input id="Gender_edit"   value="{editModel>/Gender_edit}"/>
-                                                    <Label text="Planned Study Date" />
-                                                    <!-- <Input type="date" id="Planned_study_date"  /> -->
-                                                      <!-- <DatePicker id="Planned_study_date_edit" value="{modelName>/Planned_study_date_edit}" /> -->
-                                                    <!-- <DatePicker id="Planned_study_date_edit" value="editModel>{/Planned_study_date_edit}" /> -->
-
+                                                    <Input id="iD_edit" visible="false"   value="{editModel>/ID_edit}"/> 
+                                                    <Label text="student" />
+                                                    <Input id="Student_edit" value="{editModel>/Student_edit}"/>
+                                                    <Label text="User" />
+                                                    <Input id="User_edit"  value="{editModel>/User_edit}" />
+                                                    <Label text="Message" />
+                                                    <Input id="Message_edit"   value="{editModel>/Message_edit}"/>
+                                                    <Label text="Updated_by" />
+                                                    <Input id="Updated_by_edit"   value="{editModel>/Updated_by_edit}"/>
+                  
 
                                                 </form:content>
                                             </form:SimpleForm>
@@ -111,41 +102,28 @@
       <!-- Columns definition -->
       <columns>
         <!-- Add columns based on your entity properties -->
-         <Column minScreenWidth="Tablet" demandPopin="true">
-          <header>
-          <Text text="Student ID" />
-           </header>
-        </Column>
+    
         <Column minScreenWidth="Tablet" demandPopin="true">
          <header>
-          <Text text="Full Name" />
+          <Text text="Student" />
            </header>
         </Column>
         <Column minScreenWidth="Tablet" demandPopin="true"> 
          <header>
-          <Text text="Gender" />
+          <Text text="User" />
            </header>
         </Column>
         <Column minScreenWidth="Tablet" demandPopin="true">
          <header>
-          <Text text="Office" />
+          <Text text="Message" />
            </header>
         </Column>
         <Column minScreenWidth="Tablet" demandPopin="true">
          <header>
-          <Text text="Advisor_ID" />
+          <Text text="Updated_by" />
            </header>
         </Column>
-        <Column minScreenWidth="Tablet" demandPopin="true">
-         <header>
-          <Text text="Created_at" />
-           </header>
-        </Column>
-        <Column minScreenWidth="Tablet" demandPopin="true">
-         <header>
-          <Text text="Planned_study_date" />
-           </header>
-        </Column>
+      
         <Column minScreenWidth="Tablet" demandPopin="true">
         <header>
             <Text text="Actions" />
@@ -159,13 +137,11 @@
         <ColumnListItem type="Active" id="item0" vAlign="Middle">
           <cells>    
              
-           <Text id="id1" text="{Students>ID}" />
-            <Text id="id2" text="{Students>Full_name}" />
-            <Text id="id3" text="{Students>Gender}" />
-            <Text id="id4" text="{Students>Office}" />
-            <Text id="id5" text="{Students>Advisor_ID}" />
-            <Text id="id8" text="{Students>Created_at}" />
-            <Text id="id7" text="{Students>Planned_study_date}" />
+           <Text id="id1" text="{comm>ID}" />
+            <Text id="id2" text="{comm>Student}" />
+            <Text id="id3" text="{comm>User}" />
+            <Text id="id4" text="{comm>Message}" />
+            <Text id="id5" text="{comm>Updated_by}" />
             <HBox>
                 <Button id="id6" icon="sap-icon://edit" press="onOpenDetailDialog"/>
                 <Button id="deleteButton" icon="sap-icon://delete" tooltip="Delete" visible="true" press="confirm">
@@ -189,8 +165,9 @@
 			</OverflowToolbar>
 		</f:footer>
 		</f:DynamicPage>
-      </Page>
+           </Page>
             </pages>
         </App>
     </Shell>
+ 
 </mvc:View>

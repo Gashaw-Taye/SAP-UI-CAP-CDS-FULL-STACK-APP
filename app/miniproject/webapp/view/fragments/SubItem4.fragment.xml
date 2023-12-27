@@ -1,0 +1,6 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <VBox>
+    <Text text="This is SubItem 4" />
+    <!-- Add more controls or content specific to SubItem1 as needed -->
+  </VBox>
+</core:FragmentDefinition>

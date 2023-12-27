@@ -159,6 +159,18 @@
           "groupId": "$auto"
         }
       },
+
+      "comm": {
+        "dataSource": "mainService_4",
+        "preload": true,
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true,
+          "groupId": "$auto"
+        }
+      },
       "Users": {
         "dataSource": "mainService_1", 
         "preload": true,
@@ -199,6 +211,17 @@
           "name": "RouteMaster", 
           "pattern": "Dashboard",
           "target": ["TargetMaster"]
+        },
+
+        {
+          "name": "V", 
+          "pattern": "V",
+          "target": ["TargetV"]
+        },
+        {
+          "name": "RouteComm", 
+          "pattern": "Student_communications",
+          "target": ["RouteComm"]
         },
         {
 					"name": "RouteStudent",
@@ -245,7 +268,13 @@
           "viewId": "Dashboard",
           "viewName": "Dashboard"
         },
-        
+        "TargetV": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "V",
+          "viewName": "V"
+        },
         
         
         "RouteStudent": {
@@ -254,7 +283,14 @@
           "clearControlAggregation": false,
           "viewId": "Student",
           "viewName": "Student"
-        },        
+        },    
+        "RouteComm": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Advisor_Student_Communication",
+          "viewName": "Advisor_Student_Communication"
+        },     
         "RouteUsers": {
           "viewType": "XML",
           "transition": "slide",

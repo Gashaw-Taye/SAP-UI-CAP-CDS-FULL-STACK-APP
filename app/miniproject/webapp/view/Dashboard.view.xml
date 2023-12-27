@@ -10,60 +10,77 @@
   class="side-navigation-demo"
   height="100%">
 
-  <SplitApp
-    id="SplitAppDemo"
-    initialDetail="detailDetail"
-    initialMaster="master"
-    detailNavigate="onDetailNavigate"> <!-- Add detailNavigate event handler -->
+  <Bar>
+    <contentLeft>
+      <Button
+        text=""
+        icon="sap-icon://menu2"
+        press=".onCollapseExpandPress" />
+    </contentLeft>
+    <contentRight>
+      <Button id="btn" text="Logout" type="Accept" press="logout" />
+    </contentRight>
+  </Bar>
 
-    <detailPages>
-      <mvc:XMLView viewName="miniproject.view.Student" id="detail2" />
-      <mvc:XMLView viewName="miniproject.view.User" id="detail" />
-       <mvc:XMLView viewName="miniproject.view.Test" id="detailDetail" />   
-      <mvc:XMLView viewName="miniproject.view.List" id="detailDetail2" />      
-    </detailPages>
+  <App>
 
-    <masterPages >
-      <Page id="master" title="Dashboard" backgroundDesign="List" >
-       	<Button
-            text=""
-            icon="sap-icon://menu2"
-            press=".onCollapseExpandPress" />
+    <pages>
+      <!-- Main content area -->
+      <SplitApp
+        id="SplitAppDemo"
+        initialDetail="detailDetail"
+        initialMaster="master"
+        detailNavigate="onDetailNavigate"> <!-- Add detailNavigate event handler -->
 
-        <tnt:SideNavigation id="sideNavigation" selectedKey="detailDetail" itemSelect="onItemPress">
-          <tnt:NavigationList
-            id="navigationList"
-            width="320px"
-            selectedKey="detail"
-            itemSelect="onItemPress"
-            expanded="{/isSideNavExpanded}">
-            
-            <!-- Navigation Items -->
-            
-            <tnt:NavigationListItem text="User Management" key="rootItem1" icon="sap-icon://employee" expanded="false">
-              <tnt:NavigationListItem text="User Registration" key="detail" />
-              <tnt:NavigationListItem text="Users Details" key="detailDetail" />
-               <tnt:NavigationListItem text="Users Details list" key="detailDetail2" />
-            </tnt:NavigationListItem>
+        <detailPages>
+          <mvc:XMLView viewName="miniproject.view.Advisor_Student_Communication" id="detail3" />
+          <mvc:XMLView viewName="miniproject.view.Student" id="detail2" />
+          <mvc:XMLView viewName="miniproject.view.User" id="detail" />
+          <mvc:XMLView viewName="miniproject.view.Test" id="detailDetail" />
+          <mvc:XMLView viewName="miniproject.view.List" id="detailDetail2" />
+        </detailPages>
 
-            <tnt:NavigationListItem text="Student Management" key="rootItem2" icon="sap-icon://learning-assistant" expanded="false">
-              <tnt:NavigationListItem text="Student Registration" key="detail2" />
-              <tnt:NavigationListItem text="Advisor-Student Communication" key="detail2" />
-            </tnt:NavigationListItem>
+        <masterPages >
+          <Page id="master" title="Dashboard" backgroundDesign="List" class="side-navigation-master" >
 
-            <tnt:NavigationListItem text="School Management:" key="rootItem3" icon="sap-icon://curriculum" expanded="false">
-              <tnt:NavigationListItem text="School Registration" key="detail" />
-              <tnt:NavigationListItem text="Courses Registration" key="detail2" />
-            </tnt:NavigationListItem>
+            <tnt:SideNavigation id="sideNavigation" class="side-navigation-master" selectedKey="detailDetail" itemSelect="onItemPress">
+              <tnt:NavigationList>
 
-            <tnt:NavigationListItem text="Admissions" key="rootItem4" icon="sap-icon://study-leave" expanded="false">
-              <tnt:NavigationListItem text="Student Applications" key="detail"  />
-            </tnt:NavigationListItem>
+                <!-- Navigation Items -->
 
-          </tnt:NavigationList>
-        </tnt:SideNavigation>
-        <Button id="btn" text="Logout" type="Accept" press="logout" class="sapMBarHeaderContentRight" />
-      </Page>
-    </masterPages>
-  </SplitApp>
+                <tnt:NavigationListItem text="User Management" key="rootItem1" icon="sap-icon://employee" expanded="false">
+                  <tnt:NavigationListItem text="User Registration" key="detail" />
+                  <tnt:NavigationListItem text="Users Details" key="detailDetail" />
+                </tnt:NavigationListItem>
+
+                <tnt:NavigationListItem text="Student Management" key="rootItem2" icon="sap-icon://learning-assistant" expanded="false">
+                  <tnt:NavigationListItem text="Student Registration" key="detail2" />
+                  <tnt:NavigationListItem text="Advisor-Student Communication" key="detail3" />
+                  <tnt:NavigationListItem text="Student Details list" key="detailDetail2" />
+                </tnt:NavigationListItem>
+
+                <tnt:NavigationListItem text="School Management:" key="rootItem3" icon="sap-icon://curriculum" expanded="false">
+                  <tnt:NavigationListItem text="School Registration" key="detail" />
+                  <tnt:NavigationListItem text="Courses Registration" key="detail2" />
+                </tnt:NavigationListItem>
+
+                <tnt:NavigationListItem text="Admissions" key="rootItem4" icon="sap-icon://study-leave" expanded="false">
+                  <tnt:NavigationListItem text="Student Applications" key="detail"  />
+                </tnt:NavigationListItem>
+
+              </tnt:NavigationList>
+              <tnt:fixedItem>
+                <tnt:NavigationList>
+                  <tnt:NavigationListItem text="Item 1" icon="sap-icon://employee" />
+                  <tnt:NavigationListItem text="Item 2" icon="sap-icon://building" />
+                  <tnt:NavigationListItem text="Item 3" icon="sap-icon://card" />
+                </tnt:NavigationList>
+              </tnt:fixedItem>
+            </tnt:SideNavigation>
+
+          </Page>
+        </masterPages>
+      </SplitApp>
+    </pages>
+  </App>
 </mvc:View>

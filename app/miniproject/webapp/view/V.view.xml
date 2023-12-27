@@ -1,0 +1,55 @@
+<mvc:View
+    controllerName="miniproject.controller.C"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:tnt="sap.tnt"
+    height="100%"
+    class="side-navigation-demo">
+	<Button
+		text=""
+		icon="sap-icon://menu2"
+		press=".onCollapseExpandPress" />
+    <App>
+        <pages>
+            <!-- Main content area -->
+            
+            <SplitApp id="splitApp" initialDetail="detailPage">
+                <masterPages>
+                
+                    <tnt:SideNavigation id="sideNavigation" selectedKey="subItem3">
+                        <tnt:NavigationList>
+                            <tnt:NavigationListItem text="Item 1" icon="sap-icon://employee">
+                                <tnt:NavigationListItem text="Sub Item 1" />
+                                <tnt:NavigationListItem text="Sub Item 2" />
+                                <tnt:NavigationListItem text="Sub Item 3" id="subItem3" key="subItem3" />
+                                <tnt:NavigationListItem text="Sub Item 4" />
+                            </tnt:NavigationListItem>
+                            <tnt:NavigationListItem text="Item 2" icon="sap-icon://building">
+                                <tnt:NavigationListItem text="Sub Item 1" />
+                                <tnt:NavigationListItem text="Sub Item 2" />
+                                <tnt:NavigationListItem text="Sub Item 3" />
+                                <tnt:NavigationListItem text="Sub Item 4" />
+                            </tnt:NavigationListItem>
+                        </tnt:NavigationList>
+                        <tnt:fixedItem>
+                            <tnt:NavigationList>
+                                <tnt:NavigationListItem text="Item 1" icon="sap-icon://employee" />
+                                <tnt:NavigationListItem text="Item 2" icon="sap-icon://building" />
+                                <tnt:NavigationListItem text="Item 3" icon="sap-icon://card" />
+                            </tnt:NavigationList>
+                        </tnt:fixedItem>
+                    </tnt:SideNavigation>
+                </masterPages>
+                <detailPages>
+                    <!-- Detail page (initially set as master) -->
+                    <Page title="Main Content Area" id="detailPage">
+                        <content>
+                            <Button text="Main Content Area Content" />
+                            <!-- Add your content here -->
+                        </content>
+                    </Page>
+                </detailPages>
+            </SplitApp>
+        </pages>
+    </App>
+</mvc:View>

@@ -10,7 +10,12 @@
   xmlns:micro="sap.suite.ui.microchart"
   xmlns:fb="sap.ui.comp.filterbar"
   xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" 
+  
   xmlns:svm="sap.ui.comp.smartvariants">
+  <Shell id="shell">
+        <App id="app">
+            <pages>
+                <Page id="page" title="user list">
   	<f:DynamicPage headerExpanded="{/headerExpanded}">
   <!-- <Page title="Student List Report"> -->
   	<f:title>
@@ -240,6 +245,10 @@
 			</OverflowToolbar>
 		</f:footer>
 		</f:DynamicPage>
+     </Page>
+            </pages>
+        </App>
+    </Shell>
  
 </mvc:View>
 
