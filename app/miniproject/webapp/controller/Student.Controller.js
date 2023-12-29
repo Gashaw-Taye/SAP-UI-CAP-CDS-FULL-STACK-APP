@@ -215,6 +215,7 @@ onSave: function(){
                           return response.json();
                       })
                       .then(data => {
+                        oBinding.refresh();
                           // Handle the response data as needed
                           console.log('Update successful:', data);
                       })

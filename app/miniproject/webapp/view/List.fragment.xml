@@ -1,0 +1,207 @@
+<mvc:View controllerName="miniproject.controller.List"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns:form="sap.ui.layout.form"
+     xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <!-- <Page id="page" title="{i18n>title}">
+        <content />
+    </Page> -->
+        <App id="apppp">
+            <pages>
+                <Page id="page12" title="List">
+                    <content>
+                        <Table items="{Students>/Students}" id="table01" mode="SingleSelectLeft" selectionChange="onSelect">
+                            <headerToolbar>
+                                <OverflowToolbar>
+                                    <content> 
+                                        <ToolbarSpacer />
+                                        <SearchField id="searchFields" width="20%" placeholder="search" search=".onSearch" liveChange=".onLiveSearch" />
+                                        <Button id="createButtons" icon="sap-icon://add" tooltip="Create" visible="true" press="onOpenAddDialog">
+                                            <layoutData>
+                                                <OverflowToolbarLayoutData priority="NeverOverflow" />
+                                            </layoutData>
+                                        </Button>
+                                        <Button id="deleteButtonn" icon="sap-icon://delete" tooltip="Delete" visible="false" press="onDelete">
+                                            <layoutData>
+                                                <OverflowToolbarLayoutData priority="NeverOverflow" />
+                                            </layoutData>
+                                        </Button>
+
+                                        <Button id="saveButtonn" text="Save" type="Emphasized" visible="false" enabled="true" press="onSave" />
+                                        <Button id="editModeButtonn" visible="true" icon="sap-icon://edit" tooltip="Edit" press="onEditMode">
+                                            <layoutData>
+                                                <OverflowToolbarLayoutData priority="NeverOverflow" />
+                                            </layoutData>
+                                        </Button>
+
+                                    </content>
+                                    <dependents>
+                                        <Dialog id="OpenDialoggg" title="Create New Student">
+                                            <buttons>
+                                                <Button id="confirmCreatee" text="Create" press=".onCreate" type="Emphasized" />
+                                                <Button id="cancelCreatee" text="Cancel" press="onCancelDialog" type="Transparent" />
+                                            </buttons>
+                                            <form:SimpleForm editable="true" layout="ResponsiveGridLayout">
+                                                <form:content>
+                                                    <!-- <Label text="Student DB ID" required="true" />
+                                                    <Input id="ID" change="onNameChange" /> -->
+                                                    <Label text="Full Name" />
+                                                    <Input id="Full_nameee" />
+                                                    <Label text="Office" />
+                                                    <Input id="Officeee"  />
+                                                    <Label text="Advisor" />
+                                                    <ComboBox
+id="Advisor_IDd" 
+    items="{
+      path: 'userModel>/value',
+      sorter: { path: 'Full_name' }
+    }">
+    <core:Item key="{userModel>ID}" text="{userModel>Full_name}" />
+</ComboBox>
+                                                    <!-- <Input id="Advisor_ID"  /> -->
+                                                    <Label text="Gender" />
+                                                    <Input id="Genderr"  />
+                                                  
+                                                </form:content>
+                                            </form:SimpleForm>
+                                        </Dialog>
+                                    </dependents>
+
+        <!-- STUDENT DETAIL MODAL  -->
+        <dependents>
+                                      <Dialog id="studentDetailModall" title="Student Details -" binding="{editModel>/}" class="fullmodal">
+    <buttons>
+        <Button id="confirmDeleteDetaill" text="Delete" press=".onDeleteStudent" class="redButton" />
+        <Button id="confirmCreateDetaill" text="Create" press=".onUpdate" type="Emphasized" />
+        <Button id="cancelCreateDetaill" text="Cancel" press="onCancelDialog" type="Transparent" />
+    </buttons>
+
+    <!-- Use IconTabBar to organize content into tabs -->
+    <IconTabBar
+        id="iconTabBarr"
+        expanded="true"
+        backgroundDesign="Solid"
+        class="sapUiResponsiveMargin">
+        <items>
+            <!-- First Tab -->
+       <IconTabFilter
+    id="tab11"
+    text="General">
+    <form:SimpleForm
+        editable="true"
+        layout="ResponsiveGridLayout"
+        labelSpanXL="4"
+        labelSpanL="4"
+        labelSpanM="4"
+        labelSpanS="12"
+        adjustLabelSpan="false"
+        emptySpanXL="2"
+        emptySpanL="2"
+        emptySpanM="2"
+        emptySpanS="0"
+        columnsXL="2"
+        columnsL="2"
+        columnsM="1"
+        singleContainerFullSize="false">
+        <form:content>
+            <!-- Column 1 -->
+            <VBox>
+                <Label text="Full Name" />
+                <Input id="ID_edittt" visible="false" value="{editModel>/ID_edit}" />
+                <Input id="Full_name_edittt" value="{editModel>/Full_name_edit}" />
+                <Label text="Advisor" />
+                <ComboBox
+                    id="Advisor_edittt"
+                    items="{
+                        path: 'userModel>/value',
+                        sorter: { path: 'Full_name' }
+                    }">
+                    <core:Item key="{userModel>ID}" text="{userModel>Full_name}" />
+                </ComboBox>
+            </VBox>
+
+            <!-- Column 2 -->
+            <VBox>
+                <Label text="Office" />
+                <Input id="Office_editt" value="{editModel>/Office_edit}" />
+                <Label text="Gender" />
+                <Input id="Gender_editt" value="{editModel>/Gender_edit}" />
+                  </VBox>
+        </form:content>
+    </form:SimpleForm>
+</IconTabFilter>
+
+
+
+            <IconTabFilter
+                id="tab2"
+                text="Applications">
+                <form:SimpleForm editable="true" layout="ResponsiveGridLayout">
+                    <form:content>
+                         <Label text="Full Name" />
+                        <Input id="Full_name_editdasd" value="{editModel>/Full_name_edit}" />
+                    </form:content>
+                </form:SimpleForm>
+            </IconTabFilter>
+                  <IconTabFilter
+                id="tab3"
+                text="Communications">
+                <form:SimpleForm editable="true" layout="ResponsiveGridLayout">
+                    <form:content>
+                        <Label text="Full Name" />
+                        <Input id="Full_namexdas_editt" value="{editModel>/Full_name_edit}" />
+                    </form:content>
+                </form:SimpleForm>
+            </IconTabFilter>
+            <!-- Additional Tab Filters can be added here -->
+
+        </items>
+    </IconTabBar>
+</Dialog>
+
+                                    </dependents>
+
+                                </OverflowToolbar>
+                            </headerToolbar>
+                            <items>
+                                <ColumnListItem type="Active" id="item001">
+                                    <cells>
+                                  <Text id="id03" text="{Students>ID}"/>
+                                <Text id="id23" text="{Students>Full_name}"/>
+                                <Text id="id33" text="{Students>Office}"/>
+                                <Text id="id43" text="{Students>Advisor_ID}"/>
+                                        <Button id="id63" icon="sap-icon://edit" press="onSelect" />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                            <columns>
+                                <Column>
+                                    <header>
+                                        <Label text="Student DB ID" />
+                                    </header>
+                                </Column>
+                                <Column>
+                                    <header>
+                                        <Label text="Full Name" />
+                                    </header>
+                                </Column>
+                                <Column>
+                                    <header>
+                                        <Label text="Office" />
+                                    </header>
+                                </Column>
+                               
+                                
+                                      <Column>
+                                    <header>
+                                        <Label text="Action" />
+                                    </header>
+                                </Column>
+                            </columns>
+                        </Table>
+                    </content>
+                </Page>
+            </pages>
+        </App>
+ 
+</mvc:View>

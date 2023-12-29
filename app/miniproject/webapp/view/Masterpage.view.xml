@@ -1,0 +1,70 @@
+<mvc:View height="100%"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+  	xmlns:core="sap.ui.core"
+	xmlns:tnt="sap.tnt"
+    controllerName="miniproject.controller.Masterpage">
+	<tnt:ToolPage id="toolPage">
+	
+		<tnt:header>
+			<f:ShellBar title="Student Managment system"
+				secondTitle="IDP"
+				showMenuButton="true"
+				homeIcon="https://sapui5.hana.ondemand.com/1.120.1/resources/sap/ui/documentation/sdk/images/logo.png"
+				showCopilot="false"
+				showNotifications="true"
+				menuButtonPressed="onMenuButtonPress"
+				showProductSwitcher="true"
+				notificationsNumber="2">
+				
+				<f:menu>
+					<Menu>
+						<MenuItem text="Flight booking" icon="sap-icon://flight" />
+						<MenuItem text="Car rental" icon="sap-icon://car-rental" />
+					
+					</Menu>
+					
+				</f:menu>
+				<f:profile>
+					<Avatar initials="UI"/>					
+						
+						
+				</f:profile>
+				<f:searchManager>
+					<f:SearchManager/>
+				</f:searchManager>
+			</f:ShellBar>
+			
+		</tnt:header>
+		
+		<tnt:sideContent>
+			<core:Fragment
+					fragmentName="miniproject.view.SideNavigation"
+					type="XML" />
+		</tnt:sideContent>
+
+		<tnt:mainContents>
+			<NavContainer id="pageContainer" initialPage="page1">
+				 <pages> 
+              	<ScrollContainer id="root1" horizontal="false" vertical="true" height="100%">
+                <core:Fragment fragmentName="miniproject.view.AdditionalPage" type="XML"/>
+                </ScrollContainer>
+					<ScrollContainer id="page1" horizontal="false" vertical="true" height="900%">
+						<!-- <Text text="This is the first page"/> -->
+                         <core:Fragment fragmentName="miniproject.view.Student" type="XML"/>
+					</ScrollContainer>
+					<ScrollContainer id="page2" horizontal="false" vertical="true" height="90%">
+						<core:Fragment fragmentName="miniproject.view.List" type="XML"/>
+					</ScrollContainer>
+					<ScrollContainer id="root2" horizontal="false" vertical="true" height="100%">
+						  <core:Fragment fragmentName="miniproject.view.User" type="XML"/>
+					</ScrollContainer>
+					<ScrollContainer id="root3" horizontal="false" vertical="true" height="100%">
+						  <core:Fragment fragmentName="miniproject.view.Test" type="XML"/>
+					</ScrollContainer>
+				</pages>
+			</NavContainer>
+		</tnt:mainContents>
+	</tnt:ToolPage>
+</mvc:View>

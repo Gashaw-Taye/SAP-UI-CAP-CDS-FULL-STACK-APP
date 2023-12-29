@@ -25,8 +25,9 @@ sap.ui.define([
 			var oPwd = this.getView().byId("pwd").getValue();    //get input value data in oPwd variable
 			
 			if(oUser==="admin" && oPwd==="admin"){	
+                // alert('helo')
                 localStorage.setItem("isLoggedIn", "true");
-                this.getOwnerComponent().getRouter().navTo("RouteMaster");			
+                this.getOwnerComponent().getRouter().navTo("Targetdash");			
 				// document.write("Login Successfully");
 			}
             else if(oUser==="user" && oPwd==="user"){	

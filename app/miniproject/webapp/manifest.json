@@ -214,6 +214,12 @@
         },
 
         {
+          "name": "Targetdash", 
+          "pattern": "Masterpage",
+          "target": ["Targetdash"]
+        },
+
+        {
           "name": "V", 
           "pattern": "V",
           "target": ["TargetV"]
@@ -246,6 +252,13 @@
           ]
         },
         {
+          "name": "AdditionalPage",
+          "pattern": "AdditionalPage",
+          "target": [
+            "TargeAdditionalPage"
+          ]
+        },
+        {
           "name": "RouteUser",
           "pattern": "User",
           "target": [
@@ -260,6 +273,20 @@
           "clearControlAggregation": false,
           "viewId": "Login",
           "viewName": "Login"
+        },
+        "Targetdash": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Masterpage",
+          "viewName": "Masterpage"
+        },
+        "TargeAdditionalPage": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "AdditionalPage",
+          "viewName": "AdditionalPage"
         },
         "TargetMaster": {
           "viewType": "XML",
