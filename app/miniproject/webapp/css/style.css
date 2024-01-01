@@ -43,3 +43,6 @@
 /* .collapsedWidth {
     width: 1px !important;
 } */
+.customShellBar .sapMBarLeft {
+    justify-content: flex-start !important;
+}

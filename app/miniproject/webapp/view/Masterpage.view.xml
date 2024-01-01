@@ -8,7 +8,7 @@
 	<tnt:ToolPage id="toolPage">
 	
 		<tnt:header>
-			<f:ShellBar title="Student Managment system"
+			<!-- <f:ShellBar title="Student Managment system"
 				secondTitle="IDP"
 				showMenuButton="true"
 				homeIcon="https://sapui5.hana.ondemand.com/1.120.1/resources/sap/ui/documentation/sdk/images/logo.png"
@@ -16,10 +16,16 @@
 				showNotifications="true"
 				menuButtonPressed="onMenuButtonPress"
 				showProductSwitcher="true"
+				notificationsNumber="2"> -->
+				<f:ShellBar title="Student Managment system"
+				secondTitle="IDP"
+				showMenuButton="true"
+				menuButtonPressed="onMenuButtonPress"
+				showNotifications="true"
 				notificationsNumber="2">
 				
-				<f:menu>
-					<Menu>
+				<f:menu >
+					<Menu class="customShellBar">
 						<MenuItem text="Flight booking" icon="sap-icon://flight" />
 						<MenuItem text="Car rental" icon="sap-icon://car-rental" />
 					
