@@ -1,9 +1,6 @@
 <mvc:View controllerName="project1.controller.Table"
   xmlns:micro="sap.suite.ui.microchart"
-  
-
 	xmlns="sap.suite.ui.microchart" xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m" xmlns:table="sap.ui.table">
-
 	<table:Table selectionMode="None" rows="{/Rows}">
 		<table:columns>
 			<table:Column>
@@ -19,7 +16,6 @@
 				</table:template>
 			</table:Column>
 			<table:Column>
-
 				<m:Label text="Member Date"/>
 				<table:template>
 					<m:Label text="{Sales Manager}"/>
@@ -44,26 +40,19 @@
 					<m:Label text="{Period}"/>
 				</table:template>
 			</table:Column>
-
 			<table:Column width="6rem">
 				<m:Label text="Status"/>
-				<table:template>
-			
+				<table:template>			
                      <micro:StackedBarMicroChart size="Responsive"  press="press" precision="0">
-                        <micro:bars>
-                        
+                        <micro:bars>                        
                             <micro:StackedBarMicroChartBar valueColor="Good" value="30"/>
                             <micro:StackedBarMicroChartBar valueColor="Error" value="30"/>
                             <micro:StackedBarMicroChartBar valueColor="Neutral" value="30"/>
                             <micro:StackedBarMicroChartBar valueColor="Critical" value="30"/>
-
                         </micro:bars>
                     </micro:StackedBarMicroChart>
-
-
 				</table:template>
 			</table:Column>
 		</table:columns>
 	</table:Table>
-
 </mvc:View>

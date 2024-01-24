@@ -132,6 +132,17 @@
           "target": ["item1Detail"]
         },
         {
+          "name": "Targetdash", 
+          "pattern": "Masterpage",
+          "target": ["Targetdash"]
+        },
+        {
+          "name": "Dashpage", 
+          "pattern": "Dashpage",
+          "target": ["Dashpage"],
+          "icon": "sap-icon://education" 
+        },
+        {
           "pattern": "item2",
           "name": "item2",
           "target": ["item2Detail"]
@@ -144,6 +155,21 @@
           "clearControlAggregation": false,
           "viewId": "Login",
           "viewName": "Login"
+        },
+        "Dashpage": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Dashpage",
+          "viewName": "Dashpage"
+        },
+
+        "Targetdash": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Masterpage",
+          "viewName": "Masterpage"
         },
         "home": {
           "viewName": "Home",

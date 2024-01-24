@@ -6,7 +6,29 @@ module.exports = async function () {
 
   // Function to insert demo data
   const insertDemoData = async () => {
-    const demoData = [];
+    const demoData = [
+      {
+        School_ID: 1, // Replace with the actual School ID
+        Course_name: 'Demo Course 1',
+        Status: 1, // Replace with the actual Status
+        Created_at: new Date(),
+        Updated_at: new Date(),
+      },
+      {
+        School_ID: 1, // Replace with the actual School ID
+        Course_name: 'Demo Course 2',
+        Status: 1, // Replace with the actual Status
+        Created_at: new Date(),
+        Updated_at: new Date(),
+      },
+      {
+        School_ID: 1, // Replace with the actual School ID
+        Course_name: 'Demo Course 3',
+        Status: 1, // Replace with the actual Status
+        Created_at: new Date(),
+        Updated_at: new Date(),
+      },
+    ];
 
     const existingRecords = await SELECT.from(School_courses).then((result) => result.length);
 

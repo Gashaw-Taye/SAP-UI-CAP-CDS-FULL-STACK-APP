@@ -3,25 +3,33 @@ sap.ui.define([
     "sap/m/MessageToast",
     "sap/m/ColumnListItem",
     "sap/m/Input",
-    "sap/ui/model/json/JSONModel"
+    "sap/ui/model/json/JSONModel",
+    "project1/config/Config"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
 
-    function (Controller, MessageToast, ColumnListItem,Input, JSONModel) {
+    function (Controller, MessageToast, ColumnListItem,Input, JSONModel,Config) {
         "use strict";
 
-        return Controller.extend("project1.controller.Home", {
+        return Controller.extend("project1.controller.Student", {
             
             onInit: function () {
+               
                 this._oTable = this.byId("table0");
                 this._createReadOnlyTemplates();
                 this.rebindTable(this.oReadOnlyTemplate, "Navigation");
 
-          
+                const token = sessionStorage.getItem('token')
+                if(token){
+                fetch(Config.baseUrl+"odata/v4/users/Users", {
+                    headers: {
+                      'Authorization': `Bearer ${token}`,
+                      'Content-Type': 'application/json',
+                    },
+                  })
                 
-                fetch("https://port4004-workspaces-ws-wml98.us10.trial.applicationstudio.cloud.sap/odata/v4/users/Users")
                 .then(response => response.json())
                 .then(data => {
                     // Create a JSONModel and set the data to the model
@@ -33,7 +41,47 @@ sap.ui.define([
                     console.error('Error fetching data:', error);
                 });
 
+                /************FETCH COURSE LIST ******************** */
+                fetch(Config.baseUrl+"odata/v4/school-course/School_courses", {
+                    headers: {
+                      'Authorization': `Bearer ${token}`,
+                      'Content-Type': 'application/json',
+                    },
+                  })
+                
+                .then(response => response.json())
+                .then(data => {
+                    // Create a JSONModel and set the data to the model
+                    var oModel = new JSONModel(data);
+                    console.log(data,"=======", oModel)
+                    this.getView().setModel(oModel, "courseList");
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
 
+                // student application datasource
+
+                fetch(Config.baseUrl+"StudentAppServices/StudentWithApps", {
+                    headers: {
+                      'Authorization': `Bearer ${token}`,
+                      'Content-Type': 'application/json',
+                    },
+                  })
+                
+                .then(response => response.json())
+                .then(data => {
+                    // Create a JSONModel and set the data to the model
+                    var oModel = new JSONModel(data);
+                    console.log(data,"=======", oModel)
+                    this.getView().setModel(oModel, "Student_applications");
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+
+                /**************************** */
+            }
                 // var oModel = new JSONModel({
                 //     Users: [
                 //         { UserId: "1", UserName: "User1" },
@@ -60,19 +108,19 @@ sap.ui.define([
                 this.oEditableTemplate = new ColumnListItem({
                     cells: [
                         new Input({
-                            value: "{mainModel>ID}",
+                            value: "{customModel>ID}",
                             change: [this.onInputChange, this]
                         }), new Input({
-                            value: "{mainModel>Full_name}",
+                            value: "{customModel>Full_name}",
                             change: [this.onInputChange, this]
                         }), new Input({
-                            value: "{mainModel>Office}",
+                            value: "{customModel>Office}",
                             change: [this.onInputChange, this]
                         }), new Input({
-                            value: "{mainModel>Advisor_ID}",
+                            value: "{customModel>Advisor_ID}",
                             change: [this.onInputChange, this]
                         }),  new Input({
-                            value: "{mainModel>Planned_study_date}",
+                            value: "{customModel>Planned_study_date}",
                             change: [this.onInputChange, this]
                         }),
                         new sap.m.Button({
@@ -112,6 +160,7 @@ sap.ui.define([
             },
             
             onLiveSearch: function (oEvent) {
+               
                 var oTable = this.getView().byId("table0");
                 var oBinding = oTable.getBinding("items");
                 var sQuery = oEvent.getParameter("newValue");
@@ -153,7 +202,7 @@ sap.ui.define([
                 // this.getView().byId("OpenDialog").open();
              },
              onOpenDetailDialog: function (oEvent) {
-                var oSelectedRow = oEvent.getSource().getBindingContext("mainModel").getObject();
+                var oSelectedRow = oEvent.getSource().getBindingContext("customModel").getObject();
 
                 // Create a new JSONModel with the values from the selected row
                 var oModel = new JSONModel({
@@ -178,6 +227,8 @@ sap.ui.define([
              onCancelDialog: function (oEvent) {
                 oEvent.getSource().getParent().close();
              },
+
+             
              onCreate: function () {
                 var oSo = this.getView().byId("Full_name").getValue();
                 if (oSo !== "") {
@@ -189,26 +240,77 @@ sap.ui.define([
                              formattedDate = plannedStudyDate.toISOString().split('T')[0];
                         }         
                         
-                        try{
-                        const oContext = oBinding.create({
+                    //     try{
+                    //     const oContext = oBinding.create({
                         
-                            "Full_name": this.byId("Full_name").getValue(),
-                            "Gender": this.byId("Gender").getValue(),
-                            "Office": this.byId("Office").getValue(),
-                            "Advisor_ID": parseInt(this.byId("Advisor_ID").getValue(), 10),//this.byId("Advisor_ID").getValue(),
-                            "Created_at": new Date(),
-                            "Planned_study_date": formattedDate,  
+                    //         "Full_name": this.byId("Full_name").getValue(),
+                    //         "Gender": this.byId("Gender").getValue(),
+                    //         "Office": this.byId("Office").getValue(),
+                    //         "Advisor_ID": parseInt(this.byId("Advisor_ID").getValue(), 10),//this.byId("Advisor_ID").getValue(),
+                    //         "Created_at": new Date(),
+                    //         "Planned_study_date": formattedDate,  
                             
-                        });
-                        oContext.created()
-                        .then(()=>{
-                                // that._focusItem(oList, oContext);
-                                this.getView().byId("OpenDialog").close();
-                        });
-                    }catch(e){
-                        this.getView().byId("OpenDialog").close();
-                    }
-  
+                    //     });
+                    //     oContext.created()
+                    //     .then(()=>{
+                    //             // that._focusItem(oList, oContext);
+                    //             this.getView().byId("OpenDialog").close();
+                    //     });
+                    // }catch(e){
+                    //     this.getView().byId("OpenDialog").close();
+                    // }
+      // Rest of your code...
+      const endpoint = Config.baseUrl+"StudentServices/Students";
+
+      // Assuming you have the updateData object defined as mentioned in your question
+      const updateData = {
+        "Full_name": this.byId("Full_name").getValue(),
+        "Gender": this.byId("Gender").getValue(),
+        "Office": this.byId("Office").getValue(),
+        "Advisor_ID": parseInt(this.byId("Advisor_ID").getValue(), 10),//this.byId("Advisor_ID").getValue(),
+        "Created_at": new Date(),
+        "Planned_study_date": formattedDate,  
+    
+      };
+      // const updateData2 = {
+      //     "Student_ID": 10,
+      //     "Course_ID": 1,
+      //     "User_ID": 1,
+      //     "Start_date": "2023-01-01T00:00:00Z",
+      //     "Note": "Note",
+      //     "Final_choice": "finalCASDCFhoice",
+      //     "Is_deferred": "Is_deferred",
+      //     "Application_status": "Application_status",
+    
+      // };
+      const fullURL = endpoint;
+         const token = sessionStorage.getItem('token')
+          if(token){
+      fetch(fullURL, {
+          method: 'POST',
+          headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(updateData),
+      })
+          .then(response => {
+              if (!response.ok) {
+                  throw new Error(`HTTP error! Status: ${response.status}`);
+              }
+              return response.json();
+          })
+          .then(data => {
+              // Handle the response data as needed
+              console.log('Update successful:', data);
+          })
+          .catch(error => {
+              console.error('Error updating data:', error);
+          });
+          this.getView().byId("OpenDialog_app").close();
+          MessageToast.show("Application added, refresh the page to get the changes");
+          // onSuccessfulPatch()
+      }
 
                     this.getView().byId("OpenDialog").close();
                     MessageToast.show("Student registered successfulyl");
@@ -219,8 +321,7 @@ sap.ui.define([
     
             },
             onSuccessfulPatch: function () {
-                // Assuming "mainModel" is your main model instance
-                var mainModel = this.getView().getModel("mainModel");
+                var customModel = this.getView().getModel("customModel");
               
                 // Assuming "editModel" is your edit model instance
                 var editModel = this.getView().getModel("editModel");
@@ -229,10 +330,10 @@ sap.ui.define([
                 var updatedData = editModel.getProperty("/ID_edit");
               
                 // Update the main model with the updated data
-                mainModel.setProperty("mainModel>/StudentWithAdvisor", updatedData);
+                customModel.setProperty("customModel>/StudentWithAdvisor", updatedData);
               
                 // Refresh the bindings to update the UI
-                mainModel.refresh(); 
+                customModel.refresh(); 
               },
               
             onUpdate: function () {
@@ -247,7 +348,7 @@ sap.ui.define([
                         }         
                         
                         try{
-                            const endpoint = "https://port4004-workspaces-ws-wml98.us10.trial.applicationstudio.cloud.sap/StudentServices/Students";
+                            const endpoint = Config.baseUrl+"StudentServices/Students";
 
                             // Assuming you have the updateData object defined as mentioned in your question
                             const updateData = {
@@ -302,7 +403,7 @@ sap.ui.define([
             },
             onDeleteStudent: async function () {
                 try {
-                    const endpoint = "https://port4004-workspaces-ws-wml98.us10.trial.applicationstudio.cloud.sap/StudentServices/Students";
+                    const endpoint = Config.baseUrl+"StudentServices/Students";
             
                     // You may want to replace 'yourStudentID' with the actual ID of the student you want to delete
                     const studentID = parseInt(this.byId("ID_edit").getValue(), 10);
@@ -348,9 +449,9 @@ sap.ui.define([
 
             var oSelected = this.byId("table0").getSelectedItem();
             if(oSelected){
-                var oSalesOrder = oSelected.getBindingContext("mainModel").getObject().ID;
+                var oSalesOrder = oSelected.getBindingContext("customModel").getObject().ID;
             
-                oSelected.getBindingContext("mainModel").delete("$auto").then(function () {
+                oSelected.getBindingContext("customModel").delete("$auto").then(function () {
                     MessageToast.show(oSalesOrder + " SuccessFully Deleted");
                 }.bind(this), function (oError) {
                     MessageToast.show("Deletion Error: ",oError);
@@ -361,14 +462,39 @@ sap.ui.define([
             
         },
         rebindTable: function(oTemplate, sKeyboardMode) {
-            this._oTable.bindItems({
-                path: "mainModel>/StudentWithAdvisor",
-                template: oTemplate,
-                templateShareable: true
-            }).setKeyboardMode(sKeyboardMode);
+           
+            const token = sessionStorage.getItem('token')
+            if(token){
+            fetch(Config.baseUrl+"StudentServices/StudentWithAdvisor", {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Create a JSONModel and set the data to the model
+                var oModel = new JSONModel(data);
+        
+                // Set the model on the table
+                this._oTable.setModel(oModel, "customModel");
+                console.log('Table Model:', this._oTable.getModel("customModel")); // Check if the model is set on the table
+        
+                // Bind items using the newly set model
+                this._oTable.bindItems({
+                    path: "customModel>/value",
+                    template: oTemplate,
+                    templateShareable: true
+                }).setKeyboardMode(sKeyboardMode);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+        }
         },
+        
         onInputChange: function(){
-            this.refreshModel("mainModel");
+            this.refreshModel("customModel");
 
         },
         
@@ -381,7 +507,7 @@ refreshModel: function (sModelName, sGroup){
         },
         makeChangesAndSubmit: function (resolve, reject, sModelName,sGroup){
             const that = this;
-            sModelName = "mainModel";
+            sModelName = "customModel";
             sGroup = "$auto";
             if (that.getView().getModel(sModelName).hasPendingChanges(sGroup)) {
                 that.getView().getModel(sModelName).submitBatch(sGroup).then(oSuccess =>{
@@ -407,19 +533,19 @@ refreshModel: function (sModelName, sGroup){
             this.oReadOnlyTemplate = new sap.m.ColumnListItem({
             cells: [
                 new sap.m.Text({
-                    text: "{mainModel>ID}"
+                    text: "{customModel>ID}"
                 }),
                 new sap.m.Text({
-                    text: "{mainModel>Full_name}"
+                    text: "{customModel>Full_name}"
                 }),
                 new sap.m.Text({
-                    text: "{mainModel>Office}"
+                    text: "{customModel>Office}"
                 }),
                 new sap.m.Text({
-                    text: "{mainModel>AdvisorName}"
+                    text: "{customModel>AdvisorName}"
                 }),
                 new sap.m.Text({
-                    text: "{mainModel>Planned_study_date}"
+                    text: "{customModel>Planned_study_date}"
                 }),
                 new sap.m.Button({
                     id: "editModeSIngleButton",
@@ -431,11 +557,120 @@ refreshModel: function (sModelName, sGroup){
                         priority: sap.m.OverflowToolbarPriority.NeverOverflow
                     })
                 })
-                // new sap.m.Text({
-                //     text: "{mainModel>Planned_study_date}"
-                // })
+    
             ]
         });
     },
+
+    // test modal
+
+    onOpenAddDialog_app: function () {
+        // alert('helo')
+        var oDialog = this.getView().byId("OpenDialog_app");
+        oDialog.setContentWidth("50%");
+        oDialog.setContentHeight("50%");
+        oDialog.open();
+        // this.getView().byId("OpenDialog").open();
+     },
+     onCancelDialog_app: function (oEvent) {
+        oEvent.getSource().getParent().close();
+     },
+     onCreate_app:function(oEvent){
+        
+        try{
+        const that = this;  // Preserve the reference to the controller context
+
+        // Use Promise to wait for the elements to be rendered
+        const waitForRendering = new Promise(function(resolve) {
+            // Check if the elements are already rendered
+            if (that.byId("ID_edit2") && that.byId("Final_choice")) {
+                resolve();
+            } else {
+                // Attach an event handler to wait for the elements to be created
+                that.getView().attachAfterRendering(function() {
+                    resolve();
+                });
+            }
+        });
+    
+        // Wait for rendering to complete before accessing the elements
+        waitForRendering.then(function() {
+            // Access the elements after rendering
+            const studentID = parseInt(that.byId("ID_edit2").getValue(), 10);
+            const Course_id =  1;//parseInt(this.byId("Course_id").getSelectedKey(), 10);
+            const User = 10;
+            const Start_date = that.byId("Start_date").getValue();
+            const Note = that.byId("Note").getValue();
+            const finalChoice = that.byId("Final_choice").getValue();
+            const Is_deferred = that.byId("Is_deferred").getValue();
+            const Application_status = that.byId("Application_status").getValue();
+    
+            console.log("Student ID:", studentID);
+            console.log("Final Choice:", finalChoice);
+    
+            // Rest of your code...
+            const endpoint = Config.baseUrl+"odata/v4/apps/Student_applications";
+
+            // Assuming you have the updateData object defined as mentioned in your question
+            const updateData = {
+                "Student_ID": studentID,
+                "Course_ID": Course_id,
+                "User_ID": User,
+                "Start_date": "2023-01-01T00:00:00Z",
+                "Note": Note,
+                "Final_choice": finalChoice,
+                "Is_deferred": Is_deferred,
+                "Application_status": Application_status,
+          
+            };
+            // const updateData2 = {
+            //     "Student_ID": 10,
+            //     "Course_ID": 1,
+            //     "User_ID": 1,
+            //     "Start_date": "2023-01-01T00:00:00Z",
+            //     "Note": "Note",
+            //     "Final_choice": "finalCASDCFhoice",
+            //     "Is_deferred": "Is_deferred",
+            //     "Application_status": "Application_status",
+          
+            // };
+            const fullURL = endpoint;
+               const token = sessionStorage.getItem('token')
+                if(token){
+            fetch(fullURL, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(updateData),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Handle the response data as needed
+                    console.log('Update successful:', data);
+                })
+                .catch(error => {
+                    console.error('Error updating data:', error);
+                });
+                this.getView().byId("OpenDialog_app").close();
+                MessageToast.show("Application added, refresh the page to get the changes");
+                // onSuccessfulPatch()
+            }
+        });
+
+    }catch(e){
+        MessageToast.show("Something went wrong ... pleache try again");
+    }
+     
+     },
+     onLiveSearch_app:function(){
+        alert("search clicked");
+     }
         });
     });

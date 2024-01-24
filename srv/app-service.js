@@ -1,36 +1,39 @@
 const cds = require('@sap/cds');
+const { decodeJWT } = require('./utils/tokenHandler');
 
 module.exports = async function () {
   const db = await cds.connect.to('db');
   const { Student_applications } = db.entities;
 
-  // Function to insert demo data
-  const insertDemoData = async () => {
-    const demoData = [];
-
-    const existingRecords = await SELECT.from(Student_applications).then((result) => result.length);
-
-    if (existingRecords === 0) {
-      for (const data of demoData) {
-        console.log(data);
-        await INSERT.into(Student_applications).entries(data);
-      }
-    }
-  };
-
-  // Insert demo data before processing any read operation
-  await insertDemoData();
 
   // Handle READ operation
   this.on('READ', 'Student_applications', async (req) => {
+
+    const token = req.headers.authorization
+    const decoded = decodeJWT(token)
+    if(!token || !decoded){
+      // return {"error":"invalid token supplied"}
+    }
+
+
     const result = await SELECT.from(Student_applications);
     return result;
   });
 
   // Handle CREATE operation
   this.on('CREATE', 'Student_applications', async (req) => {
+
     const data = req.data;
-    console.log(data);
+    console.log("===================", data);
+
+    const token = req.headers.authorization
+    const decoded = decodeJWT(token)
+    if(!token || !decoded){
+      // return {"error":"invalid token supplied"}
+    }
+
+
+
 
     const newApplication = await INSERT.into(Student_applications).entries(data);
     return newApplication;

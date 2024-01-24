@@ -1,5 +1,12 @@
 const cds = require('@sap/cds');
 
+
+const { decodeJWT } = require('./utils/tokenHandler');
+
+
+
+
+
 module.exports = async function () {
   const db = await cds.connect.to('db');
   const { Users } = db.entities;
@@ -9,7 +16,7 @@ module.exports = async function () {
     const demoData = [
       {
         Full_name: "John Doe",
-        Email: "john.doe@example.com",
+        Email: "gtforever2009@gmail.com",
         Office: "Headquarters",
         Role: "Admin",
         Password: "encrypted_password_1", // Placeholder for encrypted password
@@ -20,7 +27,7 @@ module.exports = async function () {
       },
       {
         Full_name: "Jane Doe",
-        Email: "jane.doe@example.com",
+        Email: "gtforever@example.com",
         Office: "Branch Office",
         Role: "User",
         Password: "encrypted_password_2", // Placeholder for encrypted password
@@ -47,6 +54,11 @@ module.exports = async function () {
 
   // Handle READ operation
   this.on('READ', 'Users', async (req) => {
+    const token = req.headers.authorization
+    const decoded = decodeJWT(token)
+    if(!token || !decoded){
+      // return {"error":"invalid token supplied"}
+    }
     const result = await SELECT.from(Users);
     return result;
   });

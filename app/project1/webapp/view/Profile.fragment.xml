@@ -1,0 +1,11 @@
+<mvc:View
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  controllerName="project1.controller.AdditionalPage">
+  <Page id="profilepage2" title="welcome to profile Page">
+    <!-- Your additional content goes here -->
+    <Text text="This is the profile page content"/>
+  </Page>
+   <Button text="Click profile" press="onButtonClick" />
+
+</mvc:View>

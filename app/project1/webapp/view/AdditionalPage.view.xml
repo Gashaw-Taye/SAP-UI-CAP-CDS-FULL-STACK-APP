@@ -1,0 +1,9 @@
+<mvc:View
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  controllerName="project1.controller.AdditionalPage">
+  <Page id="additionalPage" title="welcome to menu Page">
+    <Text text="This is the additional page content"/>
+  </Page>
+      <Button text="Click me" press="onButtonClick" />
+</mvc:View>

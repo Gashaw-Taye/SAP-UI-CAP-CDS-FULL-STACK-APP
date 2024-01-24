@@ -1,0 +1,69 @@
+<mvc:View
+  controllerName="project1.controller.Users"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns:l="sap.ui.layout"
+  xmlns:m="sap.ui.webc.main"
+  xmlns:fiori="sap.ui.webc.fiori"
+  xmlns="sap.m"
+  xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+  height="100%">
+ <App id="SplitAppDemoo"
+		>
+   
+        
+			<Page>
+		<Table id="studentsTables" items="{StudentServices>/Students}" >
+        <headerToolbar>
+         <OverflowToolbar>
+                 <content> 
+                      <ToolbarSpacer />
+                        <SearchField id="searchField" width="20%" placeholder="search" search=".onSearch" liveChange=".onLiveSearch" />
+                    	<Button class="sapUiSmallMargin"
+                            text=""
+                            icon="sap-icon://add" 
+                            press="handleOpenDialog" />
+                     </content>   
+                    </OverflowToolbar>    
+                    </headerToolbar>                                               
+          <columns>
+            <Column>
+              <Text text="ID" />
+            </Column>
+            <Column>
+              <Text text="Full Name" />
+            </Column>
+    
+            <Column>
+              <Text text="Office" />
+            </Column>
+                    <Column>
+              <Text text="Advisor" />
+            </Column>
+              <Column>
+              <header>
+                  <Label text="Planned Date" />
+              </header>
+          </Column>
+            <!-- Add more columns based on your entity properties -->
+          </columns>
+          <items>
+            <!-- <ColumnListItem> -->
+
+            <ColumnListItem type="Active" id="item0">
+              <cells>
+                <Text text="{Students>Full_name}" />
+                <Text text="{Students>Gender}" />
+                <Text text="{Students>Office}" />
+                <Button id="id6" icon="sap-icon://edit" press="onSelect" />
+                <!-- Add more cells based on your entity properties -->
+              </cells>
+            </ColumnListItem>
+            
+          </items>
+        </Table>              
+	</Page>				
+		
+		
+	
+	</App>     
+</mvc:View>

@@ -33,6 +33,13 @@ entity Students : managed {
   Planned_study_date : Date;
 }
 
+entity Otp_Code : managed {
+  key Id : Integer;
+  User : String;
+  Code : String; 
+  is_used : String;
+
+}
 entity Student_communications : managed {
   key Id : Integer;
   Student : Association to Students;
@@ -62,7 +69,7 @@ entity School_courses : managed {
 entity Student_applications : managed {
   key ID : Integer;
   Student : Association to Students;
-  Course_id : Association to School_courses;
+  Course : Association to School_courses;
   User : Association to Users;
   Start_date : DateTime;
   Note : String;

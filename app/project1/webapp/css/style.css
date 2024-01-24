@@ -20,3 +20,41 @@
 .fullmodal{
 	width:'100%';
 }
+
+.customShellBarWithMenu .sapMSBMenuBtn {
+    display: inline-block;
+}
+
+.customShellBarWithoutMenu .sapMSBMenuBtn {
+    display: none;
+}
+
+.customShellBar {
+    display: inline-block;
+}
+
+.invisibleButton .sapMBtnInner {
+    background: none;
+    border: none;
+    box-shadow: none;
+	color:red;
+    padding: 0;
+}
+.notificationButton {
+    position: relative;
+}
+
+.notificationContainer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: red; /* Background color for the notification */
+    padding: 0.2rem 0.5rem; /* Adjust padding as needed */
+    border-radius: 50%; /* Optional: make it a circle */
+}
+
+.notificationText {
+    color: white; /* Text color for the notification */
+    font-size: 0.8rem; /* Adjust font size as needed */
+}
+

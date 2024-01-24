@@ -1,0 +1,84 @@
+<mvc:View height="100%"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+  	xmlns:core="sap.ui.core"
+	xmlns:tnt="sap.tnt"
+    controllerName="project1.controller.Masterpage">
+	 <core:Fragment id="productSwitcherFragment" fragmentName="project1.view.Notification" type="XML"/>
+
+	<tnt:ToolPage id="toolPage">	
+	
+		<tnt:header>
+			<!-- <f:ShellBar title="Student Managment system"
+				secondTitle="IDP"
+				showMenuButton="true"
+				homeIcon="https://sapui5.hana.ondemand.com/1.120.1/resources/sap/ui/documentation/sdk/images/logo.png"
+				showCopilot="false"
+				showNotifications="true"
+				menuButtonPressed="onMenuButtonPress"
+				showProductSwitcher="true"
+				notificationsNumber="2"> -->
+				<f:ShellBar title="Student Managment system"
+				secondTitle="IDP"
+				id="yourParentControlId"
+				showMenuButton="true"
+				menuButtonPressed="onMenuButtonPress"
+				showNotifications="true"
+				notificationsNumber="6"
+				notificationsPressed="handlePopoverPress"
+				showProductSwitcher="false"
+				productSwitcherPressed="logout"
+				avatarPressed="switch"	
+				homeIcon=""		
+				homeIconTooltip="student managment system"	
+				class="{= ${/showMenuButton} ? 'customShellBarWithMenu' : 'customShellBarWithoutMenu' }">	
+			  <f:menu>
+            <Menu class="customShellBar">
+                <MenuItem text="Flight booking" icon="sap-icon://flight" />
+                <MenuItem text="Car rental" icon="sap-icon://car-rental" />                    
+            </Menu>                    
+        </f:menu>
+
+			
+				
+						
+				<f:profile>
+					<Avatar initials="switch" id="x" />					
+				</f:profile>
+				<f:searchManager >
+					<f:SearchManager liveChange="livesearch"/>
+				</f:searchManager>
+			</f:ShellBar>			
+		</tnt:header>		
+		<tnt:sideContent>
+			<core:Fragment
+					fragmentName="project1.view.SideNavigation"
+					type="XML" />
+		</tnt:sideContent>
+		<tnt:mainContents>
+			<NavContainer id="pageContainer" initialPage="dash">
+				 <pages> 
+				 <ScrollContainer id="dash" horizontal="false" vertical="true" height="100%">
+						<!-- <core:Fragment fragmentName="project1.view.Settings" type="XML"/> -->
+				</ScrollContainer>	
+              	<ScrollContainer id="AdditionalPage" horizontal="false" vertical="true" height="100%">
+                <!-- <core:Fragment fragmentName="project1.view.AdditionalPage" type="XML"/> -->
+                </ScrollContainer>
+				<ScrollContainer id="Student" horizontal="false" vertical="true" height="900%">
+				     	<!-- <core:Fragment fragmentName="project1.view.Student" type="XML"/> -->
+				</ScrollContainer>
+				<ScrollContainer id="Table" horizontal="false" vertical="true" height="900%">
+						<core:Fragment fragmentName="project1.view.Table" type="XML"/>
+				</ScrollContainer>	
+				<ScrollContainer id="profile" horizontal="false" vertical="true" height="900%">
+						<!-- <core:Fragment fragmentName="project1.view.Profile" type="XML"/> -->
+				</ScrollContainer>					
+				<ScrollContainer id="setting" horizontal="false" vertical="true" height="100%">
+						<!-- <core:Fragment fragmentName="project1.view.Settings" type="XML"/> -->
+				</ScrollContainer>					
+				</pages>
+			</NavContainer>
+		</tnt:mainContents>
+	</tnt:ToolPage>
+</mvc:View>

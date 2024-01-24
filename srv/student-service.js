@@ -1,5 +1,6 @@
 const cds = require('@sap/cds');
 const { sendEmail } = require('./utils/emailHelper');
+const { decodeJWT } = require('./utils/tokenHandler');
 
 
 module.exports = async function () {
@@ -125,11 +126,42 @@ module.exports = async function () {
   // Handle READ operation
   this.on('READ', 'Students', async (req) => {
 
-    sendEmail() 
+    // sendEmail() 
 
     const result = await SELECT.from(Students);
     return result;
   });
+
+  this.on('READ', 'StudentWithAdvisor', async (req) => {
+
+    const token = req.headers.authorization
+
+    const decoded = decodeJWT(token)
+    if(!token || !decoded){
+      console.log(decoded)
+      // return {"success":"false","message":"token expired or invalid"}
+    }
+
+    const result = await cds
+    .run(
+      SELECT.from(Students).columns([
+        'ID',
+        'Full_name',
+        'Gender',
+        'Office',
+        'Advisor.Full_name as AdvisorName', 
+        'Created_at',
+        'Planned_study_date'
+      ])
+    )
+    .then((result) => result);
+
+  return result;
+
+
+
+  });
+
 
 
   this.on('createStudent', 'Students', async (data) => {

@@ -1,0 +1,17 @@
+<mvc:View
+  xmlns:micro="sap.suite.ui.microchart"
+
+	 xmlns:mvc="sap.ui.core.mvc"
+	  xmlns="sap.m"
+	   displayBlock="true"
+    xmlns:form="sap.ui.layout.form"
+     xmlns:core="sap.ui.core"
+  
+	   xmlns:table="sap.ui.table"
+  controllerName="project1.controller.AdditionalPage">
+  <Page id="additionalPage" title="welcome to additional Page">
+    <!-- Your additional content goes here -->
+    <Text text="This is the additional page content"/>
+  </Page>
+  <Button text="Click frag" press="onButtonClick" />
+</mvc:View>

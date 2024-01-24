@@ -1,0 +1,199 @@
+{
+	"selectedKey": "test",
+	"navigation": [
+        {
+			"title": "Home",
+			"icon": "sap-icon://home",
+			"key": "Dash"
+		},
+        {
+			"title": "Calendar",
+			"icon": "sap-icon://calendar",
+			"key": "setting"
+		},
+		{
+			"title": "Main menu",
+			"icon": "sap-icon://employee",
+			"expanded": false,
+			"key": "Dash",
+			"items": [
+				{
+					"title": "Students",
+					"key": "student"
+				},
+				{
+					"title": "CRM",
+					"key": "user"
+				}
+				,
+				{
+					"title": "Register Students",
+					"key": "Register"
+				}
+				,
+				{
+					"title": "Test",
+					"key": "test"
+				}
+				
+			]
+		},
+		{
+			"title": "Prospect",
+			"icon": "sap-icon://leads",
+			"expanded": false,
+			"items": [
+				{
+					"title": "Leads",
+					"key":"leads"
+				},
+				{
+					"title": "Opportunities"
+				}
+				
+			
+			]
+		},
+		{
+			"title": "Customers",
+			"icon": "sap-icon://customer-and-contacts",
+			"expanded": false,
+			"items": [
+				{
+					"title": "Accounts"
+				},
+				{
+					"title": "Contacts"
+				},
+				{
+					"title": "Individual Customers"
+				}
+			]
+		},
+		{
+			"title": "Event",
+			"icon": "sap-icon://sound",
+			"expanded": false,
+			"items": [
+				{
+					"title": "Events"
+				},
+				{
+					"title": "Leads"
+				}
+			]
+		},
+		{
+			"title": "Activities",
+			"icon": "sap-icon://activities",
+			"expanded": false,
+			"items": [
+				{
+					"title": "Appointments"
+				},
+				{
+					"title": "E-Mails"
+				},
+				{
+					"title": "Phone Calls"
+				},
+                {
+					"title": "Tasks"
+				},
+                {
+					"title": "Chats"
+				}
+			]
+		},
+		{
+			"title": "Analysis",
+			"icon": "sap-icon://customer-view",
+			"expanded": false,
+			"items": [
+				{
+					"title": "Dashboard"
+				},
+				{
+					"title": "Reports"
+				}
+			]
+		},
+		{
+			"title": "Service",
+			"icon": "sap-icon://official-service",
+			"expanded": false,
+			"items": [
+				{
+					"title": "Tickets"
+				},
+				{
+					"title": "Templates"
+				}
+			]
+		}
+		
+	],
+    "toprightmenu": [
+		{
+			"title": "profile",
+			"icon": "sap-icon://account",
+			"key": "profile"
+		},
+		{
+			"title": "Settings",
+			"icon": "sap-icon://action-settings",
+			"key": "setting"
+		}
+	
+	],
+	"fixedNavigation": [
+		{
+			"title": "Team Calendar",
+			"icon": "sap-icon://appointment"
+		},
+		{
+			"title": "Feed",
+			"icon": "sap-icon://feed"
+		},
+		{
+			"title": "Employees",
+			"icon": "sap-icon://employee"
+		},
+        {
+			"title": "Products",
+			"icon": "sap-icon://product"
+		}
+        ,
+        {
+			"title": "Course Catalogue",
+			"icon": "sap-icon://course-book"
+		}
+        ,
+        {
+			"title": "Student Pipeline Management (SPM)",
+			"icon": "sap-icon://pipeline-analysis"
+		}
+        ,
+        {
+			"title": "Document Library",
+			"icon": "sap-icon://documents"
+		}
+	],
+	"headerItems": [
+		{
+			"text": "File"
+		},
+		{
+			"text": "Edit"
+		},
+		{
+			"text": "View"
+		},
+		{
+			"text": "Settings"
+		},
+		{
+			"text": "Help"
+		}
+	]
+}

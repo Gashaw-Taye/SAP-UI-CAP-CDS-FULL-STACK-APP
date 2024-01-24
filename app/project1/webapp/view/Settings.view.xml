@@ -1,0 +1,18 @@
+<mvc:View
+ xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns:form="sap.ui.layout.form"
+     xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+  controllerName="project1.controller.AdditionalPage">
+   <App id="app">
+<pages>
+   <Page id="AdditionalPagesetting" title="gashu man">
+      <content>
+      <Text text="This is the settings page content"/> 
+    <Button text="Click settings" press="onButtonClick" />
+   </content>
+</Page>
+</pages>
+</App>
+</mvc:View>
+

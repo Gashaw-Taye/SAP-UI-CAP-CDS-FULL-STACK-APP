@@ -1,1 +1,11 @@
-{}
+{
+    "cds": {
+      "requires": {
+        "authenticated-user": {
+          "kind": "token", 
+          "impl": "./srv/login-service.js"  
+        }
+      }
+    }
+  }
+  

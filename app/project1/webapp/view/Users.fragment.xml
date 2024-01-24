@@ -1,0 +1,11 @@
+<mvc:View
+  controllerName="project1.controller.Users"
+   xmlns:mvc="sap.ui.core.mvc"
+  xmlns:l="sap.ui.layout"
+  xmlns:m="sap.ui.webc.main"
+  xmlns:fiori="sap.ui.webc.fiori"
+  xmlns="sap.m"
+  xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+  height="100%">
+    
+</mvc:View>

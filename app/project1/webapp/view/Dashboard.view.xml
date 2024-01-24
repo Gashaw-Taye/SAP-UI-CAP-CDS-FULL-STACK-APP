@@ -78,23 +78,23 @@
 		<masterPages>
             <Page
 				id="master"
-				title="Master 1"
+				title="Menu"
 				backgroundDesign= "List">
 				<List>
-					<StandardListItem title="To Master2" type="Navigation" press=".onPressGoToMaster" />
+					<StandardListItem title="Admin" type="Navigation" press=".onPressGoToMaster" />
 				</List>
 			</Page>
 			<Page
 				id="master2"
-				title="Master 2"
+				title="Admin"
 				backgroundDesign="List"
 				showNavButton="true"
 				navButtonPress=".onPressMasterBack">
 				<List itemPress=".onListItemPress">
 					<items>
-						<StandardListItem title="To Detail 1" type="Active" custom:to="detail" />
-						<StandardListItem title="To Detail 2" type="Active" custom:to="detailDetail" />
-						<StandardListItem title="To Detail 3" type="Active" custom:to="detail2" />
+						<StandardListItem title="Students" type="Active" custom:to="detail" />
+						<StandardListItem title="Applications" type="Active" custom:to="detailDetail" />
+						<StandardListItem title="Users" type="Active" custom:to="detail2" />
 					</items>
                     
 				</List>

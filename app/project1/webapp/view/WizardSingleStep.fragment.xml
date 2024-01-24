@@ -1,0 +1,258 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:f="sap.f"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:u="sap.ui.unified"
+	xmlns:layout="sap.ui.layout">
+	<Dialog
+		id="wizardDialog"
+		showHeader="false"
+		verticalScrolling="false"
+		contentHeight="70%"
+		contentWidth="80%">
+		<f:DynamicPage
+			stickySubheaderProvider="CreateStudentWizard"
+			toggleHeaderOnTitleClick="false"
+			class="sapUiNoContentPadding"
+			showFooter="true">
+			<f:title>
+				<f:DynamicPageTitle>
+					<f:heading>
+						<Title text="Wizard in a Dialog"/>
+					</f:heading>
+				</f:DynamicPageTitle>
+			</f:title>
+			<f:content>
+				<Wizard id="CreateStudentWizard"
+						class="sapUiResponsivePadding--header sapUiResponsivePadding--content"
+						showNextButton="false"
+						navigationChange="handleNavigationChange"
+						renderMode="Page">
+					<WizardStep id="studentTypeStep"
+								title="Read the information carfuly"
+								validated="true"
+								activate="studentTypeActivate">
+					<form:SimpleForm
+								editable="true"
+								layout="ResponsiveGridLayout">
+						<Label text="ID" required="true"/>
+							<Input valueStateText="Enter digits"
+									 id="ID"
+									 type="Number" placeholder="Enter digits"
+									value="{/ID}"/>
+							<!-- <Label text="Description"/>
+							<TextArea value="{/productDescription}" rows="8"/> -->
+						</form:SimpleForm>
+					</WizardStep>
+					<WizardStep id="studentInfoStep"
+								validated="false"
+								title="Student Information"
+								activate="additionalInfoValidation">
+						<!-- <MessageStrip class="sapUiSmallMarginBottom"
+								text="Validation in the wizard is controlled by calling the validateStep(Step) and invalidateStep(Step) methods "
+								showIcon="true"/> -->
+						<!-- <Text text="Cras tellus leo, volutpat vitae ullamcorper eu, posuere malesuada nisl. Integer pellentesque leo sit amet dui vehicula, quis ullamcorper est pulvinar. Nam in libero sem. Suspendisse arcu metus, molestie a turpis a, molestie aliquet dui. Donec pulvinar, sapien et viverra imperdiet, orci erat porttitor nulla, eget commodo metus nibh nec ipsum. Aliquam lacinia euismod metus, sollicitudin pellentesque purus volutpat eget. Pellentesque egestas erat quis eros convallis mattis. Mauris hendrerit sapien a malesu corper eu, posuere malesuada nisl. Integer pellentesque leo sit amet dui vehicula, quis ullamcorper est pulvinar. Nam in libero sem. Suspendisse arcu metus, molestie a turpis a, molestie aliquet dui. Donec pulvinar, sapien	corper eu, posuere malesuada nisl. Integer pellentesque leo sit amet dui vehicula, quis ullamcorper est pulvinar. Nam in libero sem. Suspendisse arcu metus, molestie a turpis a, molestie aliquet dui. Donec pulvinar, sapien	"/> -->
+						<form:SimpleForm
+								editable="true"
+								layout="ResponsiveGridLayout">
+							<Label text="Full Name" required="true"/>
+							<Input valueStateText="Enter 6 symbols or more"
+									valueState="{/full_nameNameState}" id="Full_name" liveChange="additionalInfoValidation"
+									placeholder="Enter name with length greater than 6" value="{/Full_name}"/>
+							<Label text="office" required="true"/>
+							<Input valueStateText="Enter digits"
+									valueState="{/officenameState}" id="Office"
+									liveChange="additionalInfoValidation" type="Number" placeholder="Enter digits"
+									value="{/Office}"/>
+                                    <Label text="Gender"/>
+							<ComboBox selectedKey="{/Gender}" id="Gender">
+								<core:Item key="male" text="Male"/>
+								<core:Item key="female" text="female"/>
+							</ComboBox>
+							
+            
+							
+						</form:SimpleForm>
+					</WizardStep>
+					<WizardStep id="OptionalInfoStep"
+								validated="true"
+								activate="optionalStepActivation"
+								title="Optional Information">
+						<!-- <MessageStrip class="sapUiSmallMarginBottom"
+								text="You can validate steps by default with the validated='true' property of the step. The next button is always enabled."
+								showIcon="true"/> -->
+						<!-- <Text text="Integer pellentesque leo sit amet dui vehicula, quis ullamcorper est pulvinar. Nam in libero sem. Suspendisse arcu metus, molestie a turpis a, molestie aliquet dui. Donec ppellentesque leo sit amet dui vehicula, quis ullamcorper est pulvinar. Nam in libero sem. Suspendisse arcu metus, molestie a turpis a, molestie aliquet dui. Donec pulvinar, sapien	corper eu, posuere malesuada nisl. Integer pellentesque leo sit amet dui vehicula, quis ullamcorper est pulvinar. Nam in libero sem. Suspendisse arcu metus, molestie a turpis a, molestie aliquet dui. Donec pulvinar, sapien	"/> -->
+						<form:SimpleForm
+								editable="true"
+								layout="ResponsiveGridLayout">
+							<Label text="Cover photo"/>
+							<u:FileUploader
+									width="100%"
+									tooltip="Upload product cover photo to the local server"
+									style="Emphasized"
+									placeholder="Choose a file for Upload..."/>
+                                    <Label text="Advisor"/>
+							<!-- <Select selectedKey="{/Advisor_ID}">
+								<core:Item key="1" text="Jhone"/>
+								<core:Item key="2" text="Getachew"/>
+								<core:Item key="3" text="Gashw"/>
+							</Select> -->
+                                             <ComboBox
+                                                id="Advisor_ID" 
+                                                items="{
+                                                path: 'userModel>/value',
+                                                sorter: { path: 'Full_name' }
+                                                }">
+                                                <core:Item key="{userModel>ID}" text="{userModel>Full_name}" />
+                                            </ComboBox>
+							<Label text="Planned study date"/>
+							<!-- <DatePicker
+									id="Planned_study_dateChosen"
+									displayFormat="short"
+									value="{/Planned_study_date_wiz}"/> -->
+                                     <DatePicker id="Planned_study_date" value="{/Planned_study_date}" />
+							<!-- <Label text="Availability"/>
+							<SegmentedButton selectedKey="{/availabilityType}">
+								<items>
+									<SegmentedButtonItem key="In store" text="In store"/>
+									<SegmentedButtonItem key="In depot" text="In depot"/>
+									<SegmentedButtonItem key="In repository" text="In repository"/>
+									<SegmentedButtonItem key="Out of stock" text="Out of stock"/>
+								</items>
+							</SegmentedButton> -->
+							<!-- <Label text="Size"/>
+							<Input value="{/size}"/>
+							<ComboBox maxWidth="100px" selectedKey="{/measurement}">
+								<core:Item key="X" text="X"/>
+								<core:Item key="Y" text="Y"/>
+								<core:Item key="Z" text="Z"/>
+							</ComboBox> -->
+
+						</form:SimpleForm>
+					</WizardStep>
+					<WizardStep id="OtherStep"
+								activate="pricingActivate"
+								complete="pricingComplete"
+								validated="true"
+								title="Other">
+						<!-- <MessageStrip class="sapUiSmallMarginBottom"
+								text="You can use the wizard previousStep() and nextStep() methods to navigate from step to step without validation. Also you can use the GoToStep(step) method to scroll programmatically to previously visited steps."
+								showIcon="true"/> -->
+						<form:SimpleForm
+								editable="true"
+								layout="ResponsiveGridLayout">
+							<!-- <Label text="Gender"/>
+							<Input value="{/productPrice}"/> -->
+							
+                            <Label text="Description"/>
+							<TextArea value="{/Description}" rows="8"/>
+
+							<!-- <Label text=" VAT is included"/>
+							<CheckBox selected="{/productVAT}"/> -->
+						</form:SimpleForm>
+					</WizardStep>
+					<WizardStep
+							id="ReviewPage"
+							activate="reviewActivate"
+							complete="reviewComplete"
+							validated="true"
+							title="Review page">
+								 <form:SimpleForm
+										 title="1. Student ID"
+										minWidth="400"
+										editable="false"
+										layout="ResponsiveGridLayout">
+									<!-- <form:content>
+										<Label text="Type"/>
+										<Text id="studentTypeChosen" text="{/studentType}"/>
+										<Link press="editStepOne" text="Edit" />
+									</form:content>  -->
+								</form:SimpleForm> 
+
+								<form:SimpleForm
+										title="2.Basic Information"
+										minWidth="400"
+										editable="false"
+										layout="ResponsiveGridLayout">
+									<form:content>
+										<Label text="Full Name"/>
+										<Text id="full_NameChosen" text="{/Full_name}"/>
+										<Label text="office"/>
+										<Text id="officeChosen" text="{/Office}"/>
+										
+                                        <Label text="Gender"/>
+										<Text id="GenderChosen" text="{/Gender}"/>
+										<!-- <Text id="advisorChosen" text="{/Advisor_ID}"/> -->
+                                     
+
+										
+										<Link press="editStepTwo" text="Edit" />
+									</form:content>
+								</form:SimpleForm>
+
+								<form:SimpleForm
+										title="3.Additional Information"
+										minWidth="400"
+										editable="false"
+										layout="ResponsiveGridLayout">
+									<form:content>
+                                       <Label text="advisor"/>
+                                         <ComboBox
+                                                id="advisorChosen" 
+                                                items="{
+                                                path: 'userModel>/value',
+                                                sorter: { path: 'Full_name' }
+                                                }">
+                                                <core:Item key="{userModel/Advisor_ID}" text="{userModel/Full_name}" />
+                                            </ComboBox>
+										<!-- <Label text="Some text"/> -->
+										<!-- <Text text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+										tempor incididunt ut labore et dolore magna aliqua. "/> -->
+										<Label text="Planned_study Date"/>
+										<Text id="Planned_study_dateChosen" text="{/Planned_study_date}"/>
+										<!-- <Label text="Availability"/>
+										<Text id="AvailabilityChosen" text="{/availabilityType}"/>
+										<Label text="Size"/>
+										<HBox>
+											<Text id="Size" text="{/size}"/>
+											<Text id="Size2" class="sapUiTinyMarginBegin" text="{/measurement}"/>
+										</HBox> -->
+										<Link press="editStepThree" text="Edit" />
+									</form:content>
+								</form:SimpleForm>
+
+								<form:SimpleForm
+										title="4.Other information"
+										minWidth="400"
+										editable="false"
+										layout="ResponsiveGridLayout">
+									<form:content>
+										<!-- <Label text="Price"/>
+										<Text id="ProductPriceChosen" text="{/productPrice}"/> -->
+										
+
+                                         <Label text="Description"/>
+										<Text id="DescriptionChosen" text="{/Description}"/>
+										<!-- <Label text="VAT Included"/>
+										<Text id="ProductVATChosen" text="{/productVAT}"/> -->
+										<Link press="editStepFour" text="Edit" />
+									</form:content>
+								</form:SimpleForm>
+					</WizardStep>
+				</Wizard>
+			</f:content>
+
+			<f:footer>
+				<OverflowToolbar>
+					<ToolbarSpacer/>
+					<Button text="Previous Step" visible="{/backButtonVisible}" press="onDialogBackButton" />
+					<Button text="Next Step" type="Emphasized" enabled="{/nextButtonEnabled}" visible="{/nextButtonVisible}" press="onDialogNextButton" />
+					<Button text="Review" type="Emphasized" visible="{/reviewButtonVisible}" press="onDialogNextButton" />
+					<Button text="Finish" type="Emphasized" visible="{/finishButtonVisible}" press="handleWizardSubmit" /> 
+					<Button	text="Cancel" type="Transparent" press="handleWizardCancel"/>
+				</OverflowToolbar>
+			</f:footer>
+		</f:DynamicPage>
+	</Dialog>
+</core:FragmentDefinition>
